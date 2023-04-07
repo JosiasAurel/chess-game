@@ -10,7 +10,7 @@ using std::string;
 using std::vector;
 
 class Piece {
-private:
+protected:
   static unsigned counter;
   unsigned id;
   Team team;
@@ -27,42 +27,43 @@ public:
   virtual vector<pair<int, int>> getPossibleMoves(BoardState) = 0;
 };
 
-class Pawn : private Piece {
+class Pawn : public Piece {
 public:
   Pawn();
   ~Pawn(){};
   vector<pair<int, int>> getPossibleMoves(BoardState);
 };
 
-class Knight : private Piece {
+class Knight : public Piece {
 public:
   Knight();
   ~Knight(){};
   vector<pair<int, int>> getPossibleMoves(BoardState);
 };
 
-class Bishop : private Piece {
+
+class Bishop : public Piece {
 public:
   Bishop();
   ~Bishop(){};
   vector<pair<int, int>> getPossibleMoves(BoardState);
 };
 
-class Rook : private Piece {
+class Rook : public Piece {
 public:
   Rook();
   ~Rook(){};
   vector<pair<int, int>> getPossibleMoves(BoardState);
 };
 
-class King : private Piece {
+class King : public Piece {
 public:
   King();
   ~King(){};
   vector<pair<int, int>> getPossibleMoves(BoardState);
 };
 
-class Queen : private Piece {
+class Queen : public Piece {
 public:
   Queen();
   ~Queen(){};

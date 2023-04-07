@@ -12,7 +12,7 @@ using std::pair;
 typedef enum { DRAW, CHECKMAKE, UNFINISHED } GameState;
 
 class Board {
-private:
+public:
   BoardState boardState;
 
 public:
@@ -24,7 +24,7 @@ public:
   bool move(Piece *, pair<int, int>);
   void printBoard();
 
-private:
+public:
   // a move is valid if the current instance of Piece
   // is able to move at the target position based on his current positon
   // if it is not beyond the bounds of the board
