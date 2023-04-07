@@ -1,10 +1,17 @@
 #include "./board.hpp"
 
-array<array<Piece, 8>, 8> board;
+Board::Board() {
+  for(int row = 0; row < GRID_SIZE; row++)
+    for(int col = 0; col < GRID_SIZE; col++)
+      boardState[row][col] = nullptr;
+}
 
-Board::Board() {}
-bool Board::move(Piece p, pair<int, int> target) { return false; }
+Board::~Board(){
+  //destroy all piece objects
 
-bool Board::ValidateMove(Piece p, pair<int, int> target) { return false; }
+}
+bool Board::move(Piece* p, pair<int, int> target) { return false; }
+
+bool Board::ValidateMove(Piece* p, pair<int, int> target) { return false; }
 
 GameState Board::EvaluateGame() { return GameState::CHECKMAKE; }
