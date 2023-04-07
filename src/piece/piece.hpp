@@ -41,6 +41,7 @@ public:
   vector<pair<int, int>> getPossibleMoves(BoardState);
 };
 
+
 class Bishop : public Piece {
 public:
   Bishop();
