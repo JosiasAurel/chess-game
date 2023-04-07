@@ -33,10 +33,12 @@ vector<pair<int, int>> Rook::getPossibleMoves(BoardState) {
 
 vector<pair<int, int>> Queen::getPossibleMoves(BoardState) {
   vector<pair<int, int>> possibleMoves;
+  auto [x, y] = this->coordinate;
+
   return possibleMoves;
 }
 
-vector<pair<int, int>> King::getPossibleMoves(BoardState) {
+vector<pair<int, int>> King::getPossibleMoves(BoardState state) {
   vector<pair<int, int>> possibleMoves;
   return possibleMoves;
 }
