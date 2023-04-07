@@ -18,8 +18,8 @@ protected:
   pair<int, int> coordinate;
 
 public:
-  Piece(pair<int, int> position, Team side)
-      : id(counter++), coordinate(position), team(side) {}
+  Piece(pair<int, int> position, Team team)
+      : id(counter++), coordinate(position), team(team) {}
   ~Piece();
 
   int getId() { return id; }
@@ -29,14 +29,14 @@ public:
 
 class Pawn : public Piece {
 public:
-  Pawn();
+  Pawn(pair<int, int> coord, Team team);
   ~Pawn(){};
   vector<pair<int, int>> getPossibleMoves(BoardState);
 };
 
 class Knight : public Piece {
 public:
-  Knight();
+  Knight(pair<int, int> coord, Team team);
   ~Knight(){};
   vector<pair<int, int>> getPossibleMoves(BoardState);
 };
@@ -44,28 +44,28 @@ public:
 
 class Bishop : public Piece {
 public:
-  Bishop();
+  Bishop(pair<int, int> coord, Team team);
   ~Bishop(){};
   vector<pair<int, int>> getPossibleMoves(BoardState);
 };
 
 class Rook : public Piece {
 public:
-  Rook();
+  Rook(pair<int, int> coord, Team team);
   ~Rook(){};
   vector<pair<int, int>> getPossibleMoves(BoardState);
 };
 
 class King : public Piece {
 public:
-  King();
+  King(pair<int, int> coord, Team team);
   ~King(){};
   vector<pair<int, int>> getPossibleMoves(BoardState);
 };
 
 class Queen : public Piece {
 public:
-  Queen();
+  Queen(pair<int, int> coord, Team team);
   ~Queen(){};
   vector<pair<int, int>> getPossibleMoves(BoardState);
 };
