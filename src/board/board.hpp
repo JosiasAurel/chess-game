@@ -1,32 +1,33 @@
+#pragma once
+
+#include "../piece/piece.hpp"
+#include "../types.hpp"
 #include <array>
 #include <type_traits>
 #include <utility>
-#include "../types.hpp"
-#include "../piece/piece.hpp"
-
 
 using std::array;
 using std::pair;
 
-
 typedef enum { DRAW, CHECKMAKE, UNFINISHED } GameState;
 
 class Board {
-  private:
-    BoardState boardState;
+private:
+  BoardState boardState;
+
 public:
   Board();
   ~Board();
 
   // validates a move before taking action
   // returns false if the move attempt fails
-  bool move(Piece*, pair<int, int>);
+  bool move(Piece *, pair<int, int>);
 
 private:
   // a move is valid if the current instance of Piece
   // is able to move at the target position based on his current positon
   // if it is not beyond the bounds of the board
-  bool ValidateMove(Piece*, pair<int, int>);
+  bool ValidateMove(Piece *, pair<int, int>);
 
   GameState EvaluateGame();
 };
