@@ -33,30 +33,35 @@ public:
   ~Pawn(){};
   vector<pair<int, int>> getPossibleMoves(BoardState);
 };
+
 class Knight : private Piece {
 public:
   Knight();
   ~Knight(){};
   vector<pair<int, int>> getPossibleMoves(BoardState);
 };
+
 class Bishop : private Piece {
 public:
   Bishop();
   ~Bishop(){};
   vector<pair<int, int>> getPossibleMoves(BoardState);
 };
+
 class Rook : private Piece {
 public:
   Rook();
   ~Rook(){};
   vector<pair<int, int>> getPossibleMoves(BoardState);
 };
+
 class King : private Piece {
 public:
   King();
   ~King(){};
   vector<pair<int, int>> getPossibleMoves(BoardState);
 };
+
 class Queen : private Piece {
 public:
   Queen();

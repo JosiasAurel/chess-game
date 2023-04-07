@@ -1,6 +1,10 @@
 #include "./include/raylib.h"
+#include "./src/board/board.hpp"
 
 int main(void) {
+  Board board = Board();
+  board.printBoard();
+
   const int screenWidth = 800;
   const int screenHeight = 450;
 
@@ -14,11 +18,8 @@ int main(void) {
 
     ClearBackground(RAYWHITE);
 
-    DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
-
-
-
-
+    DrawText("Congrats! You created your first window!", 190, 200, 20,
+             LIGHTGRAY);
 
     EndDrawing();
   }
