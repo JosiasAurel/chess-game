@@ -22,6 +22,7 @@ public:
   // validates a move before taking action
   // returns false if the move attempt fails
   bool move(Piece *, pair<int, int>);
+  void printBoard();
 
 private:
   // a move is valid if the current instance of Piece

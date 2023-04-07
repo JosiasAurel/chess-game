@@ -12,4 +12,4 @@ class Piece;
 using BoardState = array<array<Piece *, GRID_SIZE>, GRID_SIZE>;
 
 // represnting the team of a piece
-typedef enum { WHITE, BLACK } Team;
+typedef enum { White, Black } Team;
