@@ -1,8 +1,8 @@
 #include "./board.hpp"
 #include <iostream>
 
-using std::cout;
-using std::endl;
+// using std::cout;
+// using std::endl;
 
 Board::Board() {
   for (int row = 0; row < GRID_SIZE; row++)
@@ -19,11 +19,18 @@ bool Board::ValidateMove(Piece *p, pair<int, int> target) { return false; }
 
 GameState Board::EvaluateGame() { return GameState::CHECKMAKE; }
 
-void Board::printBoard() {
-  for (auto row : this->boardState) {
-    for (auto cell : row) {
-      cout << cell << " ";
+array<array<int, GRID_SIZE>, GRID_SIZE> Board::representBoard() {
+  bool black = false;
+  array<array<int, GRID_SIZE>, GRID_SIZE> boardRepr{};
+  int squareCount = 1;
+  for (int i = 0; i < GRID_SIZE; i++) {
+    for (int j = 0; j < GRID_SIZE; j++) {
+      boardRepr[i][j] = black;
+      black = black == true ? false : true;
+      squareCount++;
     }
-    cout << endl;
+    black = !black;
   }
+
+  return boardRepr;
 }
