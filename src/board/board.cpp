@@ -15,7 +15,7 @@ Board::~Board() {
 }
 bool Board::move(Piece *piece, pair<int, int> target) {
   pair<Piece *, Move> action = {piece, target};
-  this->history.push(action);
+  this->history.push_back(action);
   return false;
 }
 
