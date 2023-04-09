@@ -15,7 +15,7 @@ using BoardState = array<array<Piece *, GRID_SIZE>, GRID_SIZE>;
 enum class PieceType{PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING};
 
 // represnting the team of a piece
-enum class Team { WHITE, BLACK };
+enum class Team { CHESS_WHITE, CHESS_BLACK };
 
 
 //check if cell coordinates are valid coordinates on the board

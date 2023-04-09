@@ -18,15 +18,15 @@ vector<pair<int, int>> Pawn::getPossibleMoves(BoardState boardState) {
   //movement of pawn depends on its team
   //asummming here that white is up and black down: ui needs to be aware :-O 
   auto [x, y] = this->coordinate;
-  int direction = this->team == Team::WHITE ? 1 : -1; 
+  int direction = this->team == Team::CHESS_WHITE ? 1 : -1; 
   //there are generally 3 directions to move(2 often stale )
   for (int walk: {-1, 0, 1})
     if(isValidCell(x + walk, y + direction))
       possibleMoves.push_back({x + walk, y + direction});
   //and a pawn can move two cells on first move
-  if(this->team == Team::WHITE &&  y == 1) //white on first move
+  if(this->team == Team::CHESS_WHITE &&  y == 1) //white on first move
     possibleMoves.push_back({x, y+1});
-  if(this->team == Team::BLACK &&  y == GRID_SIZE - 2) //black on first move
+  if(this->team == Team::CHESS_BLACK &&  y == GRID_SIZE - 2) //black on first move
     possibleMoves.push_back({x, y-1});
   return possibleMoves;
 }
