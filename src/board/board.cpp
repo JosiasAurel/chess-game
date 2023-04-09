@@ -13,7 +13,11 @@ Board::Board() {
 Board::~Board() {
   // destroy all piece objects
 }
-bool Board::move(Piece *p, pair<int, int> target) { return false; }
+bool Board::move(Piece *piece, pair<int, int> target) {
+  pair<Piece *, Move> action = {piece, target};
+  this->history.push(action);
+  return false;
+}
 
 bool Board::ValidateMove(Piece *p, pair<int, int> target) { return false; }
 
