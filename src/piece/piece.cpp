@@ -11,7 +11,6 @@ bool Piece::move(BoardState boardState, pair<int, int>) {
   return isValidMove;
 };
 
-
 Pawn::Pawn(pair<int, int> coord, Team team) :Piece(coord, team, PieceType::PAWN){}
 vector<pair<int, int>> Pawn::getPossibleMoves(BoardState boardState) {
   vector<pair<int, int>> possibleMoves;
@@ -76,6 +75,7 @@ vector<pair<int, int>> Bishop::getPossibleMoves(BoardState boardState) {
   //then eliminate cells that are stale
   return possibleMoves;
 }
+
 
 Rook::Rook(pair<int, int> coord, Team team) :Piece(coord, team, PieceType::ROOK){}
 vector<pair<int, int>> Rook::getPossibleMoves(BoardState boardState) {

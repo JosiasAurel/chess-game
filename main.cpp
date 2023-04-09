@@ -1,14 +1,42 @@
 #include "./include/raylib.h"
 #include "./src/board/board.hpp"
+#include "src/types.hpp"
+#include <iostream>
+
+#define SQ_SIZE 50
+
+// using std::cout;
+// using std::endl;
+
+void DrawBoard(Board &board, int initW, int initH) {
+  int xShift = initW;
+  int yShift = initH;
+  auto boardRepr = board.representBoard();
+  for (int i = 0; i < GRID_SIZE; i++) {
+    for (int j = 0; j < GRID_SIZE; j++) {
+      if (boardRepr[i][j]) {
+        DrawRectangle(xShift, yShift, SQ_SIZE, SQ_SIZE, BLACK);
+      } else
+        DrawRectangle(xShift, yShift, SQ_SIZE, SQ_SIZE, WHITE);
+
+      xShift += SQ_SIZE;
+    }
+    xShift = initW;
+    yShift += SQ_SIZE;
+  }
+}
 
 int main(void) {
   Board board = Board();
-  board.printBoard();
+  auto boardRepr = board.representBoard();
 
   const int screenWidth = 800;
-  const int screenHeight = 450;
+  const int screenHeight = 800;
 
-  InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+  const int initWidth = screenWidth * 0.25;
+  const int initHeight = screenHeight * 0.25;
+
+  InitWindow(screenWidth, screenHeight, "Chess Game");
 
   SetTargetFPS(60); // Set our game to run at 60 frames-per-second
 
@@ -16,10 +44,9 @@ int main(void) {
   {
     BeginDrawing();
 
-    ClearBackground(RAYWHITE);
+    ClearBackground(PURPLE);
 
-    DrawText("Congrats! You created your first window!", 190, 200, 20,
-             LIGHTGRAY);
+    DrawBoard(board, initWidth, initHeight);
 
     EndDrawing();
   }
