@@ -11,16 +11,18 @@ using std::pair;
 using std::string;
 using std::vector;
 
-using std::min;
 using std::max;
+using std::min;
 
-//check if cell coordinates are valid coordinates on the board
+using Move = pair<int, int>;
+
+// check if cell coordinates are valid coordinates on the board
 extern bool (*isValidCell)(int, int);
-
 
 class Piece {
 protected:
   static unsigned counter;
+  vector<Move> history;
 
   unsigned id;
 
@@ -28,6 +30,8 @@ protected:
   pair<int, int> coordinate;
   Team team;
   PieceType pieceType;
+
+  void registerMove(Move move) { history.push_back(move); }
 
 public:
   Piece(pair<int, int> position, Team team, PieceType piece)
@@ -52,7 +56,6 @@ public:
   ~Knight(){};
   vector<pair<int, int>> getPossibleMoves(BoardState);
 };
-
 
 class Bishop : public Piece {
 public:
@@ -81,5 +84,4 @@ public:
   ~Queen(){};
   vector<pair<int, int>> getPossibleMoves(BoardState);
 };
-
 #endif
