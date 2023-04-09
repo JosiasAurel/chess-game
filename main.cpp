@@ -1,6 +1,5 @@
 #include "./include/raylib.h"
 #include "./src/board/board.hpp"
-#include "src/types.hpp"
 #include <iostream>
 
 #define SQ_SIZE 50

@@ -1,5 +1,9 @@
 #include "./piece.hpp"
 
+bool (*isValidCell)(int, int) = [](int x, int y) {
+  return (x >= 0 && x < GRID_SIZE) && (y >= 0 && y < GRID_SIZE);
+};
+
 unsigned Piece::counter = 1;
 
 bool Piece::move(BoardState boardState, pair<int, int>) {
@@ -63,7 +67,6 @@ vector<pair<int, int>> Bishop::getPossibleMoves(BoardState boardState) {
       cellX < GRID_SIZE && cellY < GRID_SIZE; cellX++, cellY++)
     possibleMoves.push_back({cellX, cellY});
   //then go to alternate diagonal
-  int indexSum = x + y;
   for(int walk: {-1, 1}){
     auto [ cellX, cellY] = pair{ x + walk, y - walk};
     while(isValidCell(cellX, cellY)){
@@ -104,7 +107,6 @@ vector<pair<int, int>> Queen::getPossibleMoves(BoardState boardState) {
       cellX < GRID_SIZE && cellY < GRID_SIZE; cellX++, cellY++)
     possibleMoves.push_back({cellX, cellY});
   //then go to alternate diagonal
-  int indexSum = x + y;
   for(int walk: {-1, 1}){
     auto [ cellX, cellY] = pair{ x + walk, y - walk};
     while(isValidCell(cellX, cellY)){
@@ -125,7 +127,7 @@ vector<pair<int, int>> King::getPossibleMoves(BoardState boardState) {
   for(int walkX : {-1, 0, 1}){
     for(int walkY : {1, 0, -1}){
       auto [cellX, cellY] = pair {x + walkX, y + walkY};
-      if(isValidCell(cellX, cellY) || (cellX != x && cellY == y))
+      if(isValidCell(cellX, cellY) || (cellX == x && cellY == y))
         possibleMoves.push_back({cellX, cellY});
     }   
   }

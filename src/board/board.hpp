@@ -1,7 +1,8 @@
 #pragma once
 
+#ifndef _BOARD_H_
+#define _BOARD_H_
 #include "../piece/piece.hpp"
-#include "../types.hpp"
 #include <array>
 #include <type_traits>
 #include <utility>
@@ -36,3 +37,5 @@ public:
 
   GameState EvaluateGame();
 };
+
+#endif
