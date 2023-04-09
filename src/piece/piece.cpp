@@ -25,10 +25,10 @@ vector<pair<int, int>> Pawn::getPossibleMoves(BoardState boardState) {
     if (isValidCell(x + walk, y + direction))
       possibleMoves.push_back({x + walk, y + direction});
   // and a pawn can move two cells on first move
-  if (this->team == Team::WHITE && y == 1) // white on first move
-    possibleMoves.push_back({x, y + 1});
-  if (this->team == Team::BLACK && y == GRID_SIZE - 2) // black on first move
-    possibleMoves.push_back({x, y - 1});
+
+  if (this->history.size() == 1) {
+    possibleMoves.push_back({x, y + (this->team == Team::WHITE ? 1 : -1)});
+  }
   return possibleMoves;
 }
 

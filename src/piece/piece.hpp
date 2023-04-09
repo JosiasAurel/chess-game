@@ -9,18 +9,23 @@ using std::pair;
 using std::string;
 using std::vector;
 
-using std::min;
 using std::max;
+using std::min;
+
+using Move = pair<int, int>;
 
 class Piece {
 protected:
   static unsigned counter;
+  vector<Move> history;
 
   unsigned id;
   Team team;
   PieceType pieceType;
   // BoardState coordinates
   pair<int, int> coordinate;
+
+  void registerMove(Move move) { history.push_back(move); }
 
 public:
   Piece(pair<int, int> position, Team team, PieceType piece)
@@ -45,7 +50,6 @@ public:
   ~Knight(){};
   vector<pair<int, int>> getPossibleMoves(BoardState);
 };
-
 
 class Bishop : public Piece {
 public:
