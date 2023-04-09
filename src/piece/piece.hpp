@@ -1,5 +1,7 @@
 #pragma once
 
+#ifndef _PIECE_H_
+#define _PIECE_H_
 #include "../types.hpp"
 #include <array>
 #include <string>
@@ -14,16 +16,20 @@ using std::min;
 
 using Move = pair<int, int>;
 
+// check if cell coordinates are valid coordinates on the board
+extern bool (*isValidCell)(int, int);
+
 class Piece {
 protected:
   static unsigned counter;
   vector<Move> history;
 
   unsigned id;
-  Team team;
-  PieceType pieceType;
+
   // BoardState coordinates
   pair<int, int> coordinate;
+  Team team;
+  PieceType pieceType;
 
   void registerMove(Move move) { history.push_back(move); }
 
@@ -78,3 +84,4 @@ public:
   ~Queen(){};
   vector<pair<int, int>> getPossibleMoves(BoardState);
 };
+#endif
