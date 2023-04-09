@@ -9,17 +9,22 @@ using std::pair;
 using std::string;
 using std::vector;
 
+using std::min;
+using std::max;
+
 class Piece {
 protected:
   static unsigned counter;
+
   unsigned id;
   Team team;
+  PieceType pieceType;
   // BoardState coordinates
   pair<int, int> coordinate;
 
 public:
-  Piece(pair<int, int> position, Team team)
-      : id(counter++), coordinate(position), team(team) {}
+  Piece(pair<int, int> position, Team team, PieceType piece)
+      : id(counter++), coordinate(position), team(team), pieceType(piece) {}
   ~Piece();
 
   int getId() { return id; }
