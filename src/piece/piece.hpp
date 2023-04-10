@@ -14,7 +14,7 @@ using std::vector;
 using Move = pair<int, int>;
 
 // check if cell coordinates are valid coordinates on the board
-extern bool (*isValidCell)(int, int);
+extern bool (*cellWithinBounds)(int, int);
 
 class Piece {
 protected:

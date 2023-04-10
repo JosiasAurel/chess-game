@@ -1,6 +1,6 @@
 #include "./piece.hpp"
 
-bool (*isValidCell)(int, int) = [](int x, int y) {
+bool (*cellWithinBounds)(int, int) = [](int x, int y) {
   return (x >= 0 && x < GRID_SIZE) && (y >= 0 && y < GRID_SIZE);
 };
 
@@ -26,7 +26,7 @@ vector<pair<int, int>> Pawn::getPossibleMoves(BoardState boardState) {
   int direction = this->team == Team::CHESS_WHITE ? 1 : -1;
   // there are generally 3 directions to move(2 often stale )
   for (int walk : {-1, 0, 1})
-    if (isValidCell(x + walk, y + direction))
+    if (cellWithinBounds(x + walk, y + direction))
       possibleMoves.push_back({x + walk, y + direction});
   // and a pawn can move two cells on first move
   if (this->team == Team::CHESS_WHITE && y == 1) // white on first move
@@ -48,10 +48,10 @@ vector<pair<int, int>> Knight::getPossibleMoves(BoardState boardState) {
       auto [cellXLead, cellYLead] = pair{x + walk, y + turn};
       auto [cellXTrail, cellYTrail] = pair{x + turn, y + walk};
 
-      if (isValidCell(cellXLead, cellYLead))
+      if (cellWithinBounds(cellXLead, cellYLead))
         possibleMoves.push_back({cellXLead, cellYLead});
       ;
-      if (isValidCell(cellXTrail, cellYTrail))
+      if (cellWithinBounds(cellXTrail, cellYTrail))
         possibleMoves.push_back({cellXTrail, cellYTrail});
     }
   }
@@ -72,7 +72,7 @@ vector<pair<int, int>> Bishop::getPossibleMoves(BoardState boardState) {
   // then go to alternate diagonal
   for (int walk : {-1, 1}) {
     auto [cellX, cellY] = pair{x + walk, y - walk};
-    while (isValidCell(cellX, cellY)) {
+    while (cellWithinBounds(cellX, cellY)) {
       possibleMoves.push_back({cellX, cellY});
       cellX += walk;
       cellY -= walk;
@@ -114,7 +114,7 @@ vector<pair<int, int>> Queen::getPossibleMoves(BoardState boardState) {
   // then go to alternate diagonal
   for (int walk : {-1, 1}) {
     auto [cellX, cellY] = pair{x + walk, y - walk};
-    while (isValidCell(cellX, cellY)) {
+    while (cellWithinBounds(cellX, cellY)) {
       possibleMoves.push_back({cellX, cellY});
       cellX += walk;
       cellY -= walk;
@@ -132,7 +132,7 @@ vector<pair<int, int>> King::getPossibleMoves(BoardState boardState) {
   for (int walkX : {-1, 0, 1}) {
     for (int walkY : {1, 0, -1}) {
       auto [cellX, cellY] = pair{x + walkX, y + walkY};
-      if (isValidCell(cellX, cellY) || (cellX == x && cellY == y))
+      if (cellWithinBounds(cellX, cellY) || (cellX == x && cellY == y))
         possibleMoves.push_back({cellX, cellY});
     }
   }
