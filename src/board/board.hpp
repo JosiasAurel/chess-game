@@ -30,7 +30,7 @@ public:
   // validates a move before taking action
   // returns false if the move attempt fails
   bool move(Piece *, pair<int, int>);
-  array<array<int, GRID_SIZE>, GRID_SIZE> representBoard();
+  BoardRepr representBoard();
 
 public:
   // a move is valid if the current instance of Piece
