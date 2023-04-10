@@ -11,26 +11,20 @@ using std::pair;
 using std::string;
 using std::vector;
 
-using std::max;
-using std::min;
-
 using Move = pair<int, int>;
 
 // check if cell coordinates are valid coordinates on the board
-extern bool (*isValidCell)(int, int);
+extern bool (*cellWithinBounds)(int, int);
 
 class Piece {
 protected:
   static unsigned counter;
-  vector<Move> history;
   unsigned id;
 
   // BoardState coordinates
   pair<int, int> coordinate;
   Team team;
   PieceType pieceType;
-
-  void registerMove(Move move) { history.push_back(move); }
 
 public:
   Piece(pair<int, int> position, Team team, PieceType piece)
