@@ -6,6 +6,8 @@
 #include <array>
 
 using std::array;
+using std::max;
+using std::min;
 
 // size of the chess
 const int GRID_SIZE = 8;
