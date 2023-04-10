@@ -1,8 +1,9 @@
 #include "./include/raylib.h"
 #include "./src/board/board.hpp"
+#include "src/types.hpp"
 #include <iostream>
 
-#define SQ_SIZE 50
+#define SQ_SIZE 60
 
 // using std::cout;
 // using std::endl;
@@ -14,9 +15,9 @@ void DrawBoard(Board &board, int initW, int initH) {
   for (int i = 0; i < GRID_SIZE; i++) {
     for (int j = 0; j < GRID_SIZE; j++) {
       if (boardRepr[i][j]) {
-        DrawRectangle(xShift, yShift, SQ_SIZE, SQ_SIZE, BLACK);
+        DrawRectangle(xShift, yShift, SQ_SIZE, SQ_SIZE, BOARD_BROWN);
       } else
-        DrawRectangle(xShift, yShift, SQ_SIZE, SQ_SIZE, WHITE);
+        DrawRectangle(xShift, yShift, SQ_SIZE, SQ_SIZE, BOARD_LIGHT_BROWN);
 
       xShift += SQ_SIZE;
     }

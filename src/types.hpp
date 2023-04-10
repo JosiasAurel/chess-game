@@ -5,6 +5,12 @@
 
 #include <array>
 
+#define BOARD_BROWN                                                            \
+  (Color) { 201, 137, 85, 255 }
+
+#define BOARD_LIGHT_BROWN                                                      \
+  (Color) { 222, 202, 186, 255 }
+
 using std::array;
 using std::max;
 using std::min;
