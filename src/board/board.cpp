@@ -14,6 +14,7 @@ Board::~Board() {
   // destroy all piece objects
 }
 bool Board::move(Piece *piece, pair<int, int> target) {
+  // here should be called a piece's move method
   pair<Piece *, Move> action = {piece, target};
   this->history.push_back(action);
   return false;
@@ -23,9 +24,10 @@ bool Board::ValidateMove(Piece *p, pair<int, int> target) { return false; }
 
 GameState Board::EvaluateGame() { return GameState::CHECKMAKE; }
 
-array<array<int, GRID_SIZE>, GRID_SIZE> Board::representBoard() {
+BoardRepr Board::representBoard() {
   bool black = false;
-  array<array<int, GRID_SIZE>, GRID_SIZE> boardRepr{};
+  BoardRepr boardRepr{};
+
   int squareCount = 1;
   for (int i = 0; i < GRID_SIZE; i++) {
     for (int j = 0; j < GRID_SIZE; j++) {
