@@ -4,6 +4,7 @@
 #define _TYPES_H_
 
 #include <array>
+#include <memory>
 
 #define BOARD_BROWN                                                            \
   (Color) { 201, 137, 85, 255 }
@@ -14,13 +15,14 @@
 using std::array;
 using std::max;
 using std::min;
+using std::unique_ptr;
 
 // size of the chess
 const int GRID_SIZE = 8;
 
 // representing the internal state
 class Piece;
-using BoardState = array<array<Piece *, GRID_SIZE>, GRID_SIZE>;
+using BoardState = array<array<unique_ptr<Piece>, GRID_SIZE>, GRID_SIZE>;
 using BoardRepr = array<array<int, GRID_SIZE>, GRID_SIZE>;
 
 // categorising the pieces
