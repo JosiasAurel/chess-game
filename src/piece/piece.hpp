@@ -32,6 +32,8 @@ public:
   ~Piece();
 
   int getId() { return id; }
+  Team  getTeam(){return team; }
+  PieceType getPieceType(){return pieceType;}
   bool move(BoardState, pair<int, int>);
   virtual vector<pair<int, int>> getPossibleMoves(BoardState) = 0;
 };
