@@ -33,8 +33,8 @@ int main(void) {
   const int screenWidth = 800;
   const int screenHeight = 800;
 
-  const int initWidth = screenWidth * 0.25;
-  const int initHeight = screenHeight * 0.25;
+  const int initWidth = screenWidth ;//* 0.25;
+  const int initHeight = screenHeight;// * 0.25;
 
   InitWindow(screenWidth, screenHeight, "Chess Game");
 
