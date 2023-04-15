@@ -29,7 +29,7 @@ protected:
 public:
   Piece(pair<int, int> position, Team team, PieceType piece)
       : id(counter++), coordinate(position), team(team), pieceType(piece) {}
-  ~Piece();
+  virtual ~Piece(){};
 
   int getId() { return id; }
   Team  getTeam(){return team; }
