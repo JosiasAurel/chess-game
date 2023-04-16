@@ -35,7 +35,7 @@ bool Board::move(Piece *piece, pair<int, int> target) {
 
 bool Board::ValidateMove(Piece *p, pair<int, int> target) { return false; }
 
-GameState Board::EvaluateGame() { return GameState::CHECKMAKE; }
+GameState Board::EvaluateGame() { return GameState::CHECKMATE; }
 
 BoardRepr Board::representBoard() {
   bool black = false;
