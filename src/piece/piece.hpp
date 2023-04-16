@@ -7,9 +7,7 @@
 #include <string>
 #include <vector>
 
-using std::pair;
-using std::string;
-using std::vector;
+using std::pair, std::string, std::vector;
 
 using Move = pair<int, int>;
 

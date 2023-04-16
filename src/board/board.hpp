@@ -7,8 +7,7 @@
 #include <type_traits>
 #include <utility>
 
-using std::array;
-using std::pair;
+using std::array, std::pair;
 
 // STALEMATE -> when the game is a draw because one of the players can no longer
 // move CHECKMAKE -> A player has CHECKMAKEd their opponent RESIGNED -> when a

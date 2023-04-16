@@ -13,11 +13,8 @@
 #define BOARD_LIGHT_BROWN                                                      \
   (Color) { 222, 202, 186, 255 }
 
-using std::map;
-using std::array;
-using std::max;
-using std::min;
-using std::unique_ptr;
+using std::map, std::array, std::unique_ptr;
+using std::max, std::min;
 
 // size of the chess
 const int GRID_SIZE = 8;
