@@ -9,11 +9,11 @@
 
 using std::array, std::pair;
 
-// STALEMATE -> when the game is a draw because one of the players can no longer
-// move CHECKMAKE -> A player has CHECKMAKEd their opponent RESIGNED -> when a
-// A player resigns in the game
-// ONGOING -> The game is ongoing
-typedef enum { STALEMATE, CHECKMAKE, RESIGNED, ONGOING } GameState;
+// STALEMATE -> when the game is a draw because one of the players can no longer move 
+// CHECKMATE -> A player has CHECKMATEd their opponent 
+// RESIGNED  -> A player resigns in the game
+// ONGOING   -> The game is ongoing
+typedef enum { STALEMATE, CHECKMATE, RESIGNED, ONGOING } GameState;
 
 class Board {
 public:
