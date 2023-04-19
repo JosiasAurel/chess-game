@@ -6,18 +6,11 @@
 #include <array>
 #include <map>
 #include <memory>
-
-#define BOARD_BROWN                                                            \
-  (Color) { 201, 137, 85, 255 }
-
-#define BOARD_LIGHT_BROWN                                                      \
-  (Color) { 222, 202, 186, 255 }
+#include "./constants.hpp"
 
 using std::map, std::array, std::unique_ptr;
 using std::max, std::min;
 
-// size of the chess
-const int GRID_SIZE = 8;
 
 // representing the internal state
 class Piece;

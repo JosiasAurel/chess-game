@@ -1,5 +1,6 @@
 #include "./include/raylib.h"
 #include "./src/board/board.hpp"
+#include "./src/constants.hpp"
 #include "src/types.hpp"
 #include <iostream>
 
@@ -30,42 +31,42 @@ const map<PieceType, Image> whitePieces = {
 
 
 
-void DrawBoard(Board &board, int initW, int initH) {
-  int xShift = initW;
-  int yShift = initH;
+void DrawBoard(Board &board) {
   auto boardRepr = board.representBoard();
-  for (int i = 0; i < GRID_SIZE; i++) {
-    for (int j = 0; j < GRID_SIZE; j++) {
-      if (boardRepr[i][j]) {
-        DrawRectangle(xShift, yShift, SQ_SIZE, SQ_SIZE, BOARD_BROWN);
-      } else
-        DrawRectangle(xShift, yShift, SQ_SIZE, SQ_SIZE, BOARD_LIGHT_BROWN);
-
-      xShift += SQ_SIZE;
+  //since objects of `Color` don't have a == operator
+  //use 0 for DEEP_BROWN and 1 for light BROWN
+  auto color = pair{0, DEEP_BROWN}; 
+  for (int row = 0; row < GRID_SIZE; row++) {
+    color = color.first  == 0  ? pair{1, LIGHT_BROWN} : pair{0, DEEP_BROWN};
+    for (int col = 0; col < GRID_SIZE; col++) {
+      if((col % 2) == 0)
+        DrawRectangle(MARGIN_X + col * CELL_SIZE, MARGIN_Y + row * CELL_SIZE,
+                      CELL_SIZE, CELL_SIZE, color.second);
+      else
+        DrawRectangle(MARGIN_X + col * CELL_SIZE, MARGIN_Y + row * CELL_SIZE,
+                      CELL_SIZE, CELL_SIZE, color.second);
+      color = color.first  == 0  ? pair{1, LIGHT_BROWN} : pair{0, DEEP_BROWN};
     }
-    xShift = initW;
-    yShift += SQ_SIZE;
   }
 }
 
-void DrawPieces(Board &board, int initW, int initH) {
-  int xShift = initW;
-  int yShift = initH;
+void DrawPieces(Board &board) {
   // auto boardState = board.boardState;
-  for (int i = 0; i < GRID_SIZE; i++) {
-    for (int j = 0; j < GRID_SIZE; j++) {
-      auto piecePtr = board.boardState[i][j].get(); 
+  for (int row = 0; row < GRID_SIZE; row++) {
+    for (int col = 0; col < GRID_SIZE; col++) {
+      auto piecePtr = board.boardState[row][col].get(); 
       if (piecePtr == nullptr)
         continue;
       auto teamPieces = piecePtr->getTeam() == Team::CHESS_BLACK ?
                         blackPieces : whitePieces;
       auto pieceSprite = ImageCopy(teamPieces[piecePtr->getPieceType()]);
-      ImageResize(&pieceSprite, 50, 50);
-      DrawTexture(LoadTextureFromImage(pieceSprite), xShift + 5, yShift + 5, WHITE);
-      xShift += SQ_SIZE;
+      ImageResize(&pieceSprite, SPRITE_SIZE, SPRITE_SIZE);
+
+      //draw sprite at center of the cell
+      DrawTexture(LoadTextureFromImage(pieceSprite), 
+                  MARGIN_X + col * CELL_SIZE + (CELL_SIZE - SPRITE_SIZE) / 2, 
+                  MARGIN_Y + row * CELL_SIZE + (CELL_SIZE - SPRITE_SIZE) / 2, WHITE);
     }
-    xShift = initW;
-    yShift += SQ_SIZE;
   }
 }
 
@@ -74,13 +75,7 @@ int main(void) {
   Board board = Board();
   auto boardRepr = board.representBoard();
 
-  const int screenWidth = 800;
-  const int screenHeight = 800;
-
-  const int initWidth = screenWidth * 0.25;
-  const int initHeight = screenHeight * 0.25;
-
-  InitWindow(screenWidth, screenHeight, "Chess Game");
+  InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Chess Game");
 
   SetTargetFPS(60); // Set our game to run at 60 frames-per-second
 
@@ -90,8 +85,8 @@ int main(void) {
 
     ClearBackground(PURPLE);
 
-    DrawBoard(board, initWidth, initHeight);
-    DrawPieces(board, initWidth, initHeight);
+    DrawBoard(board);
+    DrawPieces(board);
 
     EndDrawing();
   }
