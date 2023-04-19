@@ -32,7 +32,6 @@ const map<PieceType, Image> whitePieces = {
 
 
 void DrawBoard(Board &board) {
-  auto boardRepr = board.representBoard();
   //since objects of `Color` don't have a == operator
   //use 0 for DEEP_BROWN and 1 for light BROWN
   auto color = pair{0, DEEP_BROWN}; 
@@ -73,7 +72,6 @@ void DrawPieces(Board &board) {
 
 int main(void) {
   Board board = Board();
-  auto boardRepr = board.representBoard();
 
   InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Chess Game");
 

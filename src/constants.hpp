@@ -3,7 +3,7 @@
 #ifndef _CONSTANTS_H_
 #define _CONSTANTS_H_
 
-//measrements and dimensions
+//measurements and dimensions
 const int GRID_SIZE = 8;
 
 const int WINDOW_WIDTH = 800, WINDOW_HEIGHT = 800;

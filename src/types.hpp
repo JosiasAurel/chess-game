@@ -15,7 +15,6 @@ using std::max, std::min;
 // representing the internal state
 class Piece;
 using BoardState = array<array<unique_ptr<Piece>, GRID_SIZE>, GRID_SIZE>;
-using BoardRepr = array<array<int, GRID_SIZE>, GRID_SIZE>;
 
 // categorising the pieces
 enum class PieceType { PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING };

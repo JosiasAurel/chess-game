@@ -37,19 +37,3 @@ bool Board::ValidateMove(Piece *p, pair<int, int> target) { return false; }
 
 GameState Board::EvaluateGame() { return GameState::CHECKMATE; }
 
-BoardRepr Board::representBoard() {
-  bool black = false;
-  BoardRepr boardRepr{};
-
-  int squareCount = 1;
-  for (int i = 0; i < GRID_SIZE; i++) {
-    for (int j = 0; j < GRID_SIZE; j++) {
-      boardRepr[i][j] = black;
-      black = black == true ? false : true;
-      squareCount++;
-    }
-    black = !black;
-  }
-
-  return boardRepr;
-}

@@ -29,7 +29,6 @@ public:
   // validates a move before taking action
   // returns false if the move attempt fails
   bool move(Piece *, pair<int, int>);
-  BoardRepr representBoard();
 
 public:
   // a move is valid if the current instance of Piece
