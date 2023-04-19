@@ -4,24 +4,17 @@
 #define _TYPES_H_
 
 #include <array>
+#include <map>
+#include <memory>
+#include "./constants.hpp"
 
-#define BOARD_BROWN                                                            \
-  (Color) { 201, 137, 85, 255 }
+using std::map, std::array, std::unique_ptr;
+using std::max, std::min;
 
-#define BOARD_LIGHT_BROWN                                                      \
-  (Color) { 222, 202, 186, 255 }
-
-using std::array;
-using std::max;
-using std::min;
-
-// size of the chess
-const int GRID_SIZE = 8;
 
 // representing the internal state
 class Piece;
-using BoardState = array<array<Piece *, GRID_SIZE>, GRID_SIZE>;
-using BoardRepr = array<array<int, GRID_SIZE>, GRID_SIZE>;
+using BoardState = array<array<unique_ptr<Piece>, GRID_SIZE>, GRID_SIZE>;
 
 // categorising the pieces
 enum class PieceType { PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING };

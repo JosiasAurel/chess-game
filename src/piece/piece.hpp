@@ -7,9 +7,7 @@
 #include <string>
 #include <vector>
 
-using std::pair;
-using std::string;
-using std::vector;
+using std::pair, std::string, std::vector;
 
 using Move = pair<int, int>;
 
@@ -29,9 +27,11 @@ protected:
 public:
   Piece(pair<int, int> position, Team team, PieceType piece)
       : id(counter++), coordinate(position), team(team), pieceType(piece) {}
-  ~Piece();
+  virtual ~Piece(){};
 
   int getId() { return id; }
+  Team  getTeam(){return team; }
+  PieceType getPieceType(){return pieceType;}
   bool move(BoardState, pair<int, int>);
   virtual vector<pair<int, int>> getPossibleMoves(BoardState) = 0;
 };
