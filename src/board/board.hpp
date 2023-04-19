@@ -7,14 +7,13 @@
 #include <type_traits>
 #include <utility>
 
-using std::array;
-using std::pair;
+using std::array, std::pair;
 
-// STALEMATE -> when the game is a draw because one of the players can no longer
-// move CHECKMAKE -> A player has CHECKMAKEd their opponent RESIGNED -> when a
-// A player resigns in the game
-// ONGOING -> The game is ongoing
-typedef enum { STALEMATE, CHECKMAKE, RESIGNED, ONGOING } GameState;
+// STALEMATE -> when the game is a draw because one of the players can no longer move 
+// CHECKMATE -> A player has CHECKMATEd their opponent 
+// RESIGNED  -> A player resigns in the game
+// ONGOING   -> The game is ongoing
+typedef enum { STALEMATE, CHECKMATE, RESIGNED, ONGOING } GameState;
 
 class Board {
 public:
@@ -30,7 +29,6 @@ public:
   // validates a move before taking action
   // returns false if the move attempt fails
   bool move(Piece *, pair<int, int>);
-  BoardRepr representBoard();
 
 public:
   // a move is valid if the current instance of Piece

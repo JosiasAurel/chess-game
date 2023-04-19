@@ -132,7 +132,7 @@ vector<pair<int, int>> King::getPossibleMoves(BoardState boardState) {
   for (int walkX : {-1, 0, 1}) {
     for (int walkY : {1, 0, -1}) {
       auto [cellX, cellY] = pair{x + walkX, y + walkY};
-      if (cellWithinBounds(cellX, cellY) || (cellX == x && cellY == y))
+      if (cellWithinBounds(cellX, cellY) && !(cellX == x && cellY == y))
         possibleMoves.push_back({cellX, cellY});
     }
   }
