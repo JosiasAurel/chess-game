@@ -1,7 +1,10 @@
-#pragma once
+// #pragma once
 
 #ifndef _CONSTANTS_H_
 #define _CONSTANTS_H_
+#include <map>
+#include "../include/raylib.h"
+
 
 //measurements and dimensions
 const int GRID_SIZE = 8;
@@ -15,11 +18,14 @@ const int MARGIN_X = (WINDOW_WIDTH - BOARD_WIDTH) / 2,
           MARGIN_Y = (WINDOW_HEIGHT - BOARD_HEIGHT) / 2;
 
 //colors
-#define DEEP_BROWN (Color) { 201, 137, 85, 255 }
-#define LIGHT_BROWN (Color) { 222, 202, 186, 255 }
+const auto 
+DEEP_BROWN  = Color{ 201, 137, 85, 255 },
+LIGHT_BROWN = Color{ 222, 202, 186, 255 };
 
 //Assets
 //1. Sprites
+
+
 //2. Audio
 
 

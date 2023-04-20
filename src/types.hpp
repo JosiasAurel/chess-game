@@ -1,4 +1,4 @@
-#pragma once
+// #pragma once
 
 #ifndef _TYPES_H_
 #define _TYPES_H_
@@ -8,7 +8,7 @@
 #include <memory>
 #include "./constants.hpp"
 
-using std::map, std::array, std::unique_ptr;
+using std::map, std::array, std::unique_ptr, std::shared_ptr;
 using std::max, std::min;
 
 
@@ -17,9 +17,9 @@ class Piece;
 using BoardState = array<array<unique_ptr<Piece>, GRID_SIZE>, GRID_SIZE>;
 
 // categorising the pieces
-enum class PieceType { PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING };
+enum class PieceType : char { PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING };
 
-// represnting the team of a piece
+// representing the team of a piece
 enum class Team { CHESS_WHITE, CHESS_BLACK };
 
 #endif
