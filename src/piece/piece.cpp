@@ -6,7 +6,7 @@ bool (*cellWithinBounds)(int, int) = [](int x, int y) {
 
 unsigned Piece::counter = 1;
 
-bool Piece::move(BoardState boardState, pair<int, int>) {
+bool Piece::move(, Coord) {
   bool isValidMove = false;
   // validate move
   if (!isValidMove)
@@ -15,10 +15,10 @@ bool Piece::move(BoardState boardState, pair<int, int>) {
   return isValidMove;
 };
 
-Pawn::Pawn(pair<int, int> coord, Team team)
+Pawn::Pawn(Coord coord, Team team)
     : Piece(coord, team, PieceType::PAWN) {}
-vector<pair<int, int>> Pawn::getPossibleMoves(BoardState boardState) {
-  vector<pair<int, int>> possibleMoves;
+vector<Coord> Pawn::getPossibleMoves() {
+  vector<Coord> possibleMoves;
   // first determine default valid target cells
   // movement of pawn depends on its team
   // asummming here that white is up and black down: ui needs to be aware :-O
@@ -37,10 +37,10 @@ vector<pair<int, int>> Pawn::getPossibleMoves(BoardState boardState) {
   return possibleMoves;
 }
 
-Knight::Knight(pair<int, int> coord, Team team)
+Knight::Knight(Coord coord, Team team)
     : Piece(coord, team, PieceType::KNIGHT) {}
-vector<pair<int, int>> Knight::getPossibleMoves(BoardState boardState) {
-  vector<pair<int, int>> possibleMoves;
+vector<Coord> Knight::getPossibleMoves() {
+  vector<Coord> possibleMoves;
   auto [x, y] = this->coordinate;
   // first determine default valid target cells
   for (int walk : {-2, 2}) {
@@ -59,10 +59,10 @@ vector<pair<int, int>> Knight::getPossibleMoves(BoardState boardState) {
   return possibleMoves;
 }
 
-Bishop::Bishop(pair<int, int> coord, Team team)
+Bishop::Bishop(Coord coord, Team team)
     : Piece(coord, team, PieceType::BISHOP) {}
-vector<pair<int, int>> Bishop::getPossibleMoves(BoardState boardState) {
-  vector<pair<int, int>> possibleMoves;
+vector<Coord> Bishop::getPossibleMoves() {
+  vector<Coord> possibleMoves;
   auto [x, y] = this->coordinate;
   // first determine default valid target cells
   // start with leading diagonal
@@ -82,10 +82,10 @@ vector<pair<int, int>> Bishop::getPossibleMoves(BoardState boardState) {
   return possibleMoves;
 }
 
-Rook::Rook(pair<int, int> coord, Team team)
+Rook::Rook(Coord coord, Team team)
     : Piece(coord, team, PieceType::ROOK) {}
-vector<pair<int, int>> Rook::getPossibleMoves(BoardState boardState) {
-  vector<pair<int, int>> possibleMoves;
+vector<Coord> Rook::getPossibleMoves() {
+  vector<Coord> possibleMoves;
   auto [x, y] = this->coordinate;
   for (int line = 0; line < GRID_SIZE; line++) {
     possibleMoves.push_back({x, line});
@@ -94,10 +94,10 @@ vector<pair<int, int>> Rook::getPossibleMoves(BoardState boardState) {
   return possibleMoves;
 }
 
-Queen::Queen(pair<int, int> coord, Team team)
+Queen::Queen(Coord coord, Team team)
     : Piece(coord, team, PieceType::QUEEN) {}
-vector<pair<int, int>> Queen::getPossibleMoves(BoardState boardState) {
-  vector<pair<int, int>> possibleMoves;
+vector<Coord> Queen::getPossibleMoves() {
+  vector<Coord> possibleMoves;
   auto [x, y] = this->coordinate;
   // queen has combineds moves of a rook and bishops
   // incporate moves of rook
@@ -123,10 +123,10 @@ vector<pair<int, int>> Queen::getPossibleMoves(BoardState boardState) {
   return possibleMoves;
 }
 
-King::King(pair<int, int> coord, Team team)
+King::King(Coord coord, Team team)
     : Piece(coord, team, PieceType::KING) {}
-vector<pair<int, int>> King::getPossibleMoves(BoardState boardState) {
-  vector<pair<int, int>> possibleMoves;
+vector<Coord> King::getPossibleMoves() {
+  vector<Coord> possibleMoves;
   auto [x, y] = this->coordinate;
   // first determine default valid target cells
   for (int walkX : {-1, 0, 1}) {

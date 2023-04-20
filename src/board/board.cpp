@@ -26,10 +26,10 @@ Board::Board() {
 Board::~Board() {
   // destroy all piece objects
 }
-bool Board::move(Piece *piece, pair<int, int> target) {
+bool Board::movePiece(Coord from, Coord to) {
   // here should be called a piece's move method
-  pair<Piece *, Move> action = {piece, target};
-  this->history.push_back(action);
+  // pair<Piece *, Coord> action = {piece, target};
+  // this->history.push_back(action);
   return false;
 }
 

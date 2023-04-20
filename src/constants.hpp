@@ -19,8 +19,13 @@ const int MARGIN_X = (WINDOW_WIDTH - BOARD_WIDTH) / 2,
 
 //colors
 const auto 
-DEEP_BROWN  = Color{ 201, 137, 85, 255 },
-LIGHT_BROWN = Color{ 222, 202, 186, 255 };
+DEEP_BROWN     = Color{ 201, 137, 85, 255 },
+LIGHT_BROWN    = Color{ 222, 202, 186, 255 },
+
+LIGHT_GREEN    = Color{ 12, 200, 12, 125 },
+LIGHT_YELLOW   = Color{ 201, 137, 85, 125 },
+LIGHT_RED      = Color{ 201, 137, 85, 125 };
+
 
 //Assets
 //1. Sprites
