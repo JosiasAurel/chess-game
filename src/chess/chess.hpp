@@ -7,7 +7,7 @@
 #include "../constants.hpp"
 #include "../types.hpp"
 
-const map<PieceType, Image> BLACK_SPRITES = {
+map<PieceType, Image> BLACK_SPRITES = {
   {PieceType::PAWN, LoadImage("./assets/sprites/pawn_black.png")},
   {PieceType::KNIGHT, LoadImage("./assets/sprites/knight_black.png")},
   {PieceType::BISHOP, LoadImage("./assets/sprites/bishop_black.png")},
@@ -16,7 +16,7 @@ const map<PieceType, Image> BLACK_SPRITES = {
   {PieceType::KING, LoadImage("./assets/sprites/king_black.png")},
 };
 
-const map<PieceType, Image> WHITE_SPRITES = {
+map<PieceType, Image> WHITE_SPRITES = {
   {PieceType::PAWN, LoadImage("./assets/sprites/pawn_white.png")},
   {PieceType::KNIGHT, LoadImage("./assets/sprites/knight_white.png")},
   {PieceType::BISHOP, LoadImage("./assets/sprites/bishop_white.png")},

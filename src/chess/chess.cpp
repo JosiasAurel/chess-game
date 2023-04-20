@@ -4,11 +4,15 @@
 shared_ptr<ChessGame> ChessGame::gameInstance(nullptr);
 
 ChessGame::ChessGame():chessBoard(Board()){
+  // for (auto &[key, value] : WHITE_SPRITES){
+  //   ImageResize(&value, SPRITE_SIZE, SPRITE_SIZE);
+  // }
+  // for (auto &[key, value] : BLACK_SPRITES){
+  //   ImageResize(&value, SPRITE_SIZE, SPRITE_SIZE);
+  // }
 }
 
-ChessGame::~ChessGame(){
-
-}
+ChessGame::~ChessGame(){}
 
 shared_ptr<ChessGame> ChessGame::getGameInstance(){
   if(ChessGame::gameInstance.get() == nullptr)
@@ -46,11 +50,11 @@ void ChessGame::drawSprites(){
         continue;
       auto teamSprites = piecePtr->getTeam() == Team::CHESS_BLACK ?
                         BLACK_SPRITES : WHITE_SPRITES;
-      auto pieceSprite = ImageCopy(teamSprites[piecePtr->getPieceType()]);
-      ImageResize(&pieceSprite, SPRITE_SIZE, SPRITE_SIZE);
+      // auto pieceSprite = teamSprites[piecePtr->getPieceType()];
+      // ImageResize(&pieceSprite, SPRITE_SIZE, SPRITE_SIZE);
 
       //draw sprite at center of the cell
-      DrawTexture(LoadTextureFromImage(pieceSprite), 
+      DrawTexture(LoadTextureFromImage(teamSprites[piecePtr->getPieceType()]), 
                   MARGIN_X + col * CELL_SIZE + (CELL_SIZE - SPRITE_SIZE) / 2, 
                   MARGIN_Y + row * CELL_SIZE + (CELL_SIZE - SPRITE_SIZE) / 2, WHITE);
     }
