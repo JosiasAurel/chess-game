@@ -36,6 +36,8 @@ void ChessGame::drawBoard(){
   }
 }
 
+
+//TODO Pre-process and store the sprites to avoid wasting time
 void ChessGame::drawSprites(){
   for (int row = 0; row < GRID_SIZE; row++) {
     for (int col = 0; col < GRID_SIZE; col++) {
@@ -74,7 +76,7 @@ void ChessGame::highlightPiece(Coord coord, HighlightLevel highlightLevel, bool 
   }
   DrawRectangle(cellX, cellY, CELL_SIZE, CELL_SIZE, highlightColor);
   if(!showMoves) return;
-  //TODO implement later
+  //TODO implement later: hightlighting a piece's possibl moves
   // for(Coord coord: chessBoard.boardState[x][y]->getPossibleMoves()){
   //   //highlight with a different color
   // }
@@ -97,6 +99,11 @@ void ChessGame::runGameLoop(){
     //check if a piece has been selected and highlight it, and its moves
     if(IsMouseButtonReleased(MOUSE_LEFT_BUTTON)){
       auto [x, y] = currentMouseCoord = pair{GetMouseX(), GetMouseY()};
+
+      //TODO find an easier way of resolving coord to board indices
+      // int yi = (x - MARGIN_X)/CELL_SIZE;
+      // int xi = (y - MARGIN_Y)/CELL_SIZE;
+      
       for (int row = 0; row < GRID_SIZE; row++) {
         for (int col = 0; col < GRID_SIZE; col++) {
           auto cellRect = Rectangle{float(MARGIN_X + col * CELL_SIZE), 

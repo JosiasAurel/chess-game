@@ -6,14 +6,14 @@ bool (*cellWithinBounds)(int, int) = [](int x, int y) {
 
 unsigned Piece::counter = 1;
 
-bool Piece::move(, Coord) {
-  bool isValidMove = false;
-  // validate move
-  if (!isValidMove)
-    ; // move
+// bool Piece::move(, Coord) {
+//   bool isValidMove = false;
+//   // validate move
+//   if (!isValidMove)
+//     ; // move
 
-  return isValidMove;
-};
+//   return isValidMove;
+// };
 
 Pawn::Pawn(Coord coord, Team team)
     : Piece(coord, team, PieceType::PAWN) {}

@@ -1,6 +1,6 @@
 #custom
 .vscode
-chess
+chess.exe
 lib
 *.env
 *.exe
