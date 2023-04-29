@@ -5,8 +5,11 @@
 // using std::endl;
 
 Board::Board() {
-  //place the the first line of black white pieces
-  for(auto &[team, row]: {pair{Team::CHESS_BLACK, 0}, pair{Team::CHESS_WHITE, GRID_SIZE - 1}}){
+
+  // place the the first line of black white pieces
+  for (auto &[team, row] :
+       {pair{Team::CHESS_BLACK, 0}, pair{Team::CHESS_WHITE, GRID_SIZE - 1}}) {
+
     boardState[row][0].reset(new Rook({row, 0}, team));
     boardState[row][1].reset(new Knight({row, 1}, team));
     boardState[row][2].reset(new Bishop({row, 2}, team));
@@ -16,9 +19,11 @@ Board::Board() {
     boardState[row][6].reset(new Knight({row, 6}, team));
     boardState[row][7].reset(new Rook({row, 7}, team));
   }
-  //place the the second line of black white pieces(pawns)
-  for(auto &[team, row]: {pair{Team::CHESS_BLACK, 1}, pair{Team::CHESS_WHITE, GRID_SIZE - 2}}){
-    for(int column = 0; column < GRID_SIZE; column++)
+
+  // place the the second line of black white pieces(pawns)
+  for (auto &[team, row] :
+       {pair{Team::CHESS_BLACK, 1}, pair{Team::CHESS_WHITE, GRID_SIZE - 2}}) {
+    for (int column = 0; column < GRID_SIZE; column++)
       boardState[row][column].reset(new Pawn({row, column}, team));
   }
 }
@@ -36,4 +41,3 @@ bool Board::move(Piece *piece, pair<int, int> target) {
 bool Board::ValidateMove(Piece *p, pair<int, int> target) { return false; }
 
 GameState Board::EvaluateGame() { return GameState::CHECKMATE; }
-
