@@ -1,4 +1,5 @@
 #include "./board.hpp"
+#include "../types.hpp"
 #include <iostream>
 
 // using std::cout;
@@ -41,3 +42,55 @@ bool Board::move(Piece *piece, pair<int, int> target) {
 bool Board::ValidateMove(Piece *p, pair<int, int> target) { return false; }
 
 GameState Board::EvaluateGame() { return GameState::CHECKMATE; }
+
+void Board::DrawBoard() {
+  // since objects of `Color` don't have a == operator
+  // use 0 for DEEP_BROWN and 1 for light BROWN
+  auto color = pair{0, DEEP_BROWN};
+  for (int row = 0; row < GRID_SIZE; row++) {
+
+    color = color.first == 0 ? pair{1, LIGHT_BROWN} : pair{0, DEEP_BROWN};
+
+    for (int col = 0; col < GRID_SIZE; col++) {
+      if ((col % 2) == 0)
+        DrawRectangle(MARGIN_X + col * CELL_SIZE, MARGIN_Y + row * CELL_SIZE,
+                      CELL_SIZE, CELL_SIZE, color.second);
+      else
+        DrawRectangle(MARGIN_X + col * CELL_SIZE, MARGIN_Y + row * CELL_SIZE,
+                      CELL_SIZE, CELL_SIZE, color.second);
+      color = color.first == 0 ? pair{1, LIGHT_BROWN} : pair{0, DEEP_BROWN};
+    }
+  }
+}
+
+void Board::BuildPiecePath(Piece &piece) {
+
+  switch (piece.getPieceType()) {
+  case PieceType::PAWN: {
+    logMsg("pawn here");
+    break;
+  }
+  case PieceType::ROOK: {
+    logMsg("rook here");
+    break;
+  }
+  case PieceType::KNIGHT: {
+    logMsg("knight here");
+    break;
+  }
+  case PieceType::BISHOP: {
+    logMsg("bishop here");
+    break;
+  }
+  case PieceType::KING: {
+    logMsg("knight here");
+    break;
+  }
+  case PieceType::QUEEN: {
+    logMsg("queen here");
+    break;
+  }
+  }
+  // nothing here
+  // to talk about
+}

@@ -9,10 +9,9 @@
 
 using std::array, std::pair;
 
-// STALEMATE -> when the game is a draw because one of the players can no longer move 
-// CHECKMATE -> A player has CHECKMATEd their opponent 
-// RESIGNED  -> A player resigns in the game
-// ONGOING   -> The game is ongoing
+// STALEMATE -> when the game is a draw because one of the players can no longer
+// move CHECKMATE -> A player has CHECKMATEd their opponent RESIGNED  -> A
+// player resigns in the game ONGOING   -> The game is ongoing
 typedef enum { STALEMATE, CHECKMATE, RESIGNED, ONGOING } GameState;
 
 class Board {
@@ -29,6 +28,9 @@ public:
   // validates a move before taking action
   // returns false if the move attempt fails
   bool move(Piece *, pair<int, int>);
+
+  void BuildPiecePath(Piece &);
+  void DrawBoard();
 
 public:
   // a move is valid if the current instance of Piece

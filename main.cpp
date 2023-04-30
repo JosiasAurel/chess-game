@@ -26,26 +26,6 @@ const map<PieceType, Image> whitePieces = {
     {PieceType::KING, LoadImage("./assets/sprites/king_white.png")},
 };
 
-void DrawBoard(Board &board) {
-  // since objects of `Color` don't have a == operator
-  // use 0 for DEEP_BROWN and 1 for light BROWN
-  auto color = pair{0, DEEP_BROWN};
-  for (int row = 0; row < GRID_SIZE; row++) {
-
-    color = color.first == 0 ? pair{1, LIGHT_BROWN} : pair{0, DEEP_BROWN};
-
-    for (int col = 0; col < GRID_SIZE; col++) {
-      if ((col % 2) == 0)
-        DrawRectangle(MARGIN_X + col * CELL_SIZE, MARGIN_Y + row * CELL_SIZE,
-                      CELL_SIZE, CELL_SIZE, color.second);
-      else
-        DrawRectangle(MARGIN_X + col * CELL_SIZE, MARGIN_Y + row * CELL_SIZE,
-                      CELL_SIZE, CELL_SIZE, color.second);
-      color = color.first == 0 ? pair{1, LIGHT_BROWN} : pair{0, DEEP_BROWN};
-    }
-  }
-}
-
 void DrawPieces(Board &board, TextureMap &tmap) {
   // auto boardState = board.boardState;
   for (int row = 0; row < GRID_SIZE; row++) {
@@ -108,7 +88,8 @@ int main(void) {
 
     ClearBackground(PURPLE);
 
-    DrawBoard(board);
+    board.DrawBoard();
+    // DrawBoard(board);
     DrawPieces(board, textureMap);
 
     EndDrawing();
