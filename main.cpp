@@ -35,13 +35,6 @@ void DrawPieces(Board &board, TextureMap &tmap) {
       if (piecePtr == nullptr)
         continue;
 
-      /*
-      auto teamPieces =
-          piecePtr->getTeam() == Team::CHESS_BLACK ? blackPieces : whitePieces;
-      auto pieceSprite = ImageCopy(teamPieces[piecePtr->getPieceType()]);
-      ImageResize(&pieceSprite, SPRITE_SIZE, SPRITE_SIZE);
-      */
-
       Texture2D pieceSprite = tmap[piecePtr->getId()];
       // draw sprite at center of the cell
       DrawTexture(pieceSprite,
@@ -82,6 +75,7 @@ int main(void) {
   SetTargetFPS(60); // Set our game to run at 60 frames-per-second
 
   TextureMap textureMap = BuildTextureMap(board);
+
   while (!WindowShouldClose()) // Detect window close button or ESC key
   {
     BeginDrawing();

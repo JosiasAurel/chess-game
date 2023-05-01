@@ -12,6 +12,7 @@ bool Piece::move(BoardState boardState, pair<int, int>) {
   if (!isValidMove)
     ; // move
 
+  this->counter++;
   return isValidMove;
 };
 

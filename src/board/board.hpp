@@ -29,7 +29,7 @@ public:
   // returns false if the move attempt fails
   bool move(Piece *, pair<int, int>);
 
-  void BuildPiecePath(Piece &);
+  void BuildPiecePath(Piece &, Position &);
   void DrawBoard();
 
 public:

@@ -1,5 +1,6 @@
 #include "./board.hpp"
 #include "../types.hpp"
+#include <cstdio>
 #include <iostream>
 
 // using std::cout;
@@ -30,7 +31,7 @@ Board::Board() {
 }
 
 Board::~Board() {
-  // destroy all piece objects
+  // TODO: destroy all piece objects
 }
 bool Board::move(Piece *piece, pair<int, int> target) {
   // here should be called a piece's move method
@@ -44,6 +45,7 @@ bool Board::ValidateMove(Piece *p, pair<int, int> target) { return false; }
 GameState Board::EvaluateGame() { return GameState::CHECKMATE; }
 
 void Board::DrawBoard() {
+
   // since objects of `Color` don't have a == operator
   // use 0 for DEEP_BROWN and 1 for light BROWN
   auto color = pair{0, DEEP_BROWN};
@@ -52,18 +54,32 @@ void Board::DrawBoard() {
     color = color.first == 0 ? pair{1, LIGHT_BROWN} : pair{0, DEEP_BROWN};
 
     for (int col = 0; col < GRID_SIZE; col++) {
+      Rectangle rect = {.x = static_cast<float>(MARGIN_X + col * CELL_SIZE),
+                        .y = static_cast<float>(MARGIN_Y + row * CELL_SIZE),
+                        .width = CELL_SIZE,
+                        .height = CELL_SIZE};
       if ((col % 2) == 0)
-        DrawRectangle(MARGIN_X + col * CELL_SIZE, MARGIN_Y + row * CELL_SIZE,
-                      CELL_SIZE, CELL_SIZE, color.second);
+        DrawRectangleRec(rect, color.second);
       else
-        DrawRectangle(MARGIN_X + col * CELL_SIZE, MARGIN_Y + row * CELL_SIZE,
-                      CELL_SIZE, CELL_SIZE, color.second);
+        DrawRectangleRec(rect, color.second);
       color = color.first == 0 ? pair{1, LIGHT_BROWN} : pair{0, DEEP_BROWN};
+
+      // find out if there's a piece at this point
+      // this block is temporary
+      // should be well organised later to make navigating the code clearer
+      auto piecePtr = this->boardState[row][col].get();
+      if (piecePtr != nullptr) {
+        if (CheckCollisionPointRec(GetMousePosition(), rect) &&
+            IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+          Position p{row, col};
+          this->BuildPiecePath(*piecePtr, p);
+        }
+      }
     }
   }
 }
 
-void Board::BuildPiecePath(Piece &piece) {
+void Board::BuildPiecePath(Piece &piece, Position &position) {
 
   switch (piece.getPieceType()) {
   case PieceType::PAWN: {
@@ -83,7 +99,7 @@ void Board::BuildPiecePath(Piece &piece) {
     break;
   }
   case PieceType::KING: {
-    logMsg("knight here");
+    logMsg("king here");
     break;
   }
   case PieceType::QUEEN: {

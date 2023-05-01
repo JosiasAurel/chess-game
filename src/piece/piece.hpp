@@ -7,10 +7,6 @@
 #include <string>
 #include <vector>
 
-using std::pair, std::string, std::vector;
-
-using Move = pair<int, int>;
-
 // check if cell coordinates are valid coordinates on the board
 extern bool (*cellWithinBounds)(int, int);
 
