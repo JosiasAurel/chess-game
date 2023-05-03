@@ -16,6 +16,15 @@ bool Piece::move(BoardState boardState, pair<int, int>) {
   return isValidMove;
 };
 
+NoPiece::NoPiece(pair<int, int> coord, Team team)
+    : Piece(coord, team, PieceType::NO_PIECE) {}
+
+// No possible moves
+Path NoPiece::getPossibleMoves(BoardState boardState) {
+  Path possibleMoves;
+  return possibleMoves;
+}
+
 Pawn::Pawn(pair<int, int> coord, Team team)
     : Piece(coord, team, PieceType::PAWN) {}
 
@@ -36,7 +45,7 @@ Path Pawn::getPossibleMoves(BoardState boardState) {
   // first determine default valid target cells
   // movement of pawn depends on its team
   // asummming here that white is up and black down: ui needs to be aware :-O
-  auto [x, y] = this->coordinate;
+  auto [y, x] = this->coordinate;
 
   // direction
   // a value of 1 means the pawn is up (and Team Black)
@@ -45,12 +54,14 @@ Path Pawn::getPossibleMoves(BoardState boardState) {
 
   // there are generally 3 directions to move(2 often stale )
   for (int walk : {-1, 0, 1})
-    if (cellWithinBounds(x + walk, y + direction))
-      possibleMoves.push_back({x + walk, y + direction});
+    if (cellWithinBounds(x + direction, y + walk)) {
+      // logging point change
+      possibleMoves.push_back({x + direction, y + walk});
+    }
 
   if (this->moveCount == 0) {
     int increment = this->team == Team::CHESS_BLACK ? 1 : -1;
-    possibleMoves.push_back({x, y + increment});
+    possibleMoves.push_back({x + increment * 2, y});
   }
 
   this->moveCount++;

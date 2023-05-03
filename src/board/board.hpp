@@ -18,6 +18,10 @@ class Board {
 public:
   BoardState boardState;
 
+  // the path on which the currently selected Piece can move on
+  // update later
+  Path movePath;
+
 protected:
   vector<pair<Piece *, Move>> history;
 
@@ -31,6 +35,7 @@ public:
 
   void BuildPiecePath(Piece &, Position &);
   void DrawBoard();
+  void placeHighlights();
 
 public:
   // a move is valid if the current instance of Piece

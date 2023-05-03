@@ -30,7 +30,15 @@ public:
   Team getTeam() { return team; }
   PieceType getPieceType() { return pieceType; }
   bool move(BoardState, pair<int, int>);
+  pair<int, int> _coord() { return coordinate; };
   virtual Path getPossibleMoves(BoardState) = 0;
+};
+
+class NoPiece : public Piece {
+public:
+  NoPiece(pair<int, int> coord, Team team);
+  ~NoPiece(){};
+  Path getPossibleMoves(BoardState);
 };
 
 /*

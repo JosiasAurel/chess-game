@@ -25,8 +25,10 @@ Board::Board() {
   // place the the second line of black white pieces(pawns)
   for (auto &[team, row] :
        {pair{Team::CHESS_BLACK, 1}, pair{Team::CHESS_WHITE, GRID_SIZE - 2}}) {
+
     for (int column = 0; column < GRID_SIZE; column++)
-      boardState[row][column].reset(new Pawn({row, column}, team));
+
+      boardState[row][column].reset(new Pawn({column, row}, team));
   }
 }
 
@@ -79,6 +81,15 @@ void Board::DrawBoard() {
   }
 }
 
+void Board::placeHighlights() {
+  for (auto point : this->movePath) {
+    std::cout << " row = " << point.first << " col = " << point.second
+              << std::endl;
+    this->boardState[point.first][point.second].reset(
+        new NoPiece({point.first, point.second}, Team::CHESS_BLACK));
+  }
+}
+
 /* BuildPiecePath
 
 The goal is to find valid paths the piece can move onto the board
@@ -104,28 +115,63 @@ void Board::BuildPiecePath(Piece &piece, Position &position) {
   switch (piece.getPieceType()) {
   case PieceType::PAWN: {
     logMsg("pawn here");
+    auto coord = piece._coord();
+    std::cout << "initial coord -> x = " << coord.first
+              << " y = " << coord.second << std::endl;
+    this->movePath = piece.getPossibleMoves(this->boardState);
+    this->placeHighlights();
+
     break;
   }
   case PieceType::ROOK: {
     logMsg("rook here");
+    this->movePath = piece.getPossibleMoves(this->boardState);
+    this->placeHighlights();
     break;
   }
   case PieceType::KNIGHT: {
     logMsg("knight here");
+    this->movePath = piece.getPossibleMoves(this->boardState);
+    this->placeHighlights();
     break;
   }
   case PieceType::BISHOP: {
     logMsg("bishop here");
+    this->movePath = piece.getPossibleMoves(this->boardState);
+    this->placeHighlights();
     break;
   }
   case PieceType::KING: {
     logMsg("king here");
+    this->movePath = piece.getPossibleMoves(this->boardState);
+    this->placeHighlights();
     break;
   }
   case PieceType::QUEEN: {
     logMsg("queen here");
+    this->movePath = piece.getPossibleMoves(this->boardState);
+    this->placeHighlights();
     break;
   }
+  case PieceType::NO_PIECE: {
+
+    // remove highlights
+    for (int row_idx = 0; row_idx < this->boardState.size(); row_idx++) {
+      for (int col_idx = 0; col_idx < this->boardState[row_idx].size();
+           col_idx++) {
+        auto piece = this->boardState[row_idx][col_idx];
+        if (piece->getPieceType() == PieceType::NO_PIECE) {
+          this->boardState[row_idx][col_idx] = nullptr;
+        }
+      }
+    }
+
+    break;
+  }
+
+  default:
+    this->movePath = {};
+    break;
   }
   // nothing here
   // to talk about
