@@ -81,15 +81,6 @@ void Board::DrawBoard() {
   }
 }
 
-void Board::placeHighlights() {
-  for (auto point : this->movePath) {
-    std::cout << " row = " << point.first << " col = " << point.second
-              << std::endl;
-    this->boardState[point.first][point.second].reset(
-        new NoPiece({point.first, point.second}, Team::CHESS_BLACK));
-  }
-}
-
 /* BuildPiecePath
 
 The goal is to find valid paths the piece can move onto the board
@@ -116,41 +107,37 @@ void Board::BuildPiecePath(Piece &piece, Position &position) {
   case PieceType::PAWN: {
     logMsg("pawn here");
     auto coord = piece._coord();
-    std::cout << "initial coord -> x = " << coord.first
-              << " y = " << coord.second << std::endl;
     this->movePath = piece.getPossibleMoves(this->boardState);
-    this->placeHighlights();
+
+    for (auto &item : this->movePath) {
+      std::cout << item.first << " " << item.second << std::endl;
+    }
 
     break;
   }
   case PieceType::ROOK: {
     logMsg("rook here");
     this->movePath = piece.getPossibleMoves(this->boardState);
-    this->placeHighlights();
     break;
   }
   case PieceType::KNIGHT: {
     logMsg("knight here");
     this->movePath = piece.getPossibleMoves(this->boardState);
-    this->placeHighlights();
     break;
   }
   case PieceType::BISHOP: {
     logMsg("bishop here");
     this->movePath = piece.getPossibleMoves(this->boardState);
-    this->placeHighlights();
     break;
   }
   case PieceType::KING: {
     logMsg("king here");
     this->movePath = piece.getPossibleMoves(this->boardState);
-    this->placeHighlights();
     break;
   }
   case PieceType::QUEEN: {
     logMsg("queen here");
     this->movePath = piece.getPossibleMoves(this->boardState);
-    this->placeHighlights();
     break;
   }
   case PieceType::NO_PIECE: {

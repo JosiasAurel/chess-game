@@ -27,9 +27,6 @@ const map<PieceType, Image> whitePieces = {
     {PieceType::KING, LoadImage("./assets/sprites/king_white.png")},
 };
 
-// NO_PIECE texture image
-auto textureImage = LoadImage("./assets/sprites/NO_PIECE.png");
-
 void DrawPieces(Board &board, TextureMap &tmap) {
   // auto boardState = board.boardState;
   for (int row = 0; row < GRID_SIZE; row++) {
@@ -39,11 +36,13 @@ void DrawPieces(Board &board, TextureMap &tmap) {
       if (piecePtr == nullptr)
         continue;
 
-      Texture2D pieceSprite;
-      if (piecePtr->getPieceType() == PieceType::NO_PIECE) {
-        pieceSprite = tmap[100];
-      } else
-        pieceSprite = tmap[piecePtr->getId()];
+      // Draw the moves
+      for (auto &result : board.movePath) {
+        DrawCircle(MARGIN_X + result.second * CELL_SIZE + (CELL_SIZE / 2),
+                   MARGIN_Y + result.first * CELL_SIZE + (CELL_SIZE / 2), 15,
+                   PURPLE);
+      }
+      Texture2D pieceSprite = tmap[piecePtr->getId()];
 
       // think about layers in case there's a piece at that coordinate
       // draw sprite at center of the cell
@@ -74,12 +73,6 @@ TextureMap BuildTextureMap(Board &board) {
       tmap.insert({piecePtr->getId(), LoadTextureFromImage(pieceSprite)});
     }
   }
-
-  // insert NO_PIECE image
-  auto img = ImageCopy(textureImage);
-  ImageResize(&textureImage, SPRITE_SIZE, SPRITE_SIZE);
-  tmap.insert({100, LoadTextureFromImage(textureImage)});
-
   return tmap;
 }
 

@@ -56,12 +56,12 @@ Path Pawn::getPossibleMoves(BoardState boardState) {
   for (int walk : {-1, 0, 1})
     if (cellWithinBounds(x + direction, y + walk)) {
       // logging point change
-      possibleMoves.push_back({x + direction, y + walk});
+      possibleMoves.insert({x + direction, y + walk});
     }
 
   if (this->moveCount == 0) {
     int increment = this->team == Team::CHESS_BLACK ? 1 : -1;
-    possibleMoves.push_back({x + increment * 2, y});
+    possibleMoves.insert({x + increment * 2, y});
   }
 
   this->moveCount++;
@@ -99,10 +99,10 @@ Path Knight::getPossibleMoves(BoardState boardState) {
       auto [cellXTrail, cellYTrail] = pair{x + turn, y + walk};
 
       if (cellWithinBounds(cellXLead, cellYLead))
-        possibleMoves.push_back({cellXLead, cellYLead});
+        possibleMoves.insert({cellXLead, cellYLead});
 
       if (cellWithinBounds(cellXTrail, cellYTrail))
-        possibleMoves.push_back({cellXTrail, cellYTrail});
+        possibleMoves.insert({cellXTrail, cellYTrail});
     }
   }
 
@@ -136,7 +136,7 @@ Path Bishop::getPossibleMoves(BoardState boardState) {
                             position.second + diff.second)) {
       position.first += diff.first;
       position.second += diff.second;
-      possibleMoves.push_back(position);
+      possibleMoves.insert(position);
     }
   }
 
@@ -174,8 +174,8 @@ Path Rook::getPossibleMoves(BoardState boardState) {
   auto [x, y] = this->coordinate;
 
   for (int line = 0; line < GRID_SIZE; line++) {
-    possibleMoves.push_back({x, line});
-    possibleMoves.push_back({line, y});
+    possibleMoves.insert({x, line});
+    possibleMoves.insert({line, y});
   }
 
   return possibleMoves;
@@ -206,15 +206,15 @@ Path Queen::getPossibleMoves(BoardState boardState) {
                             position.second + diff.second)) {
       position.first += diff.first;
       position.second += diff.second;
-      possibleMoves.push_back(position);
+      possibleMoves.insert(position);
     }
   }
 
   // queen has combineds moves of a rook and bishops
   // incporate moves of rook
   for (int line = 0; line < GRID_SIZE; line++) {
-    possibleMoves.push_back({x, line});
-    possibleMoves.push_back({line, y});
+    possibleMoves.insert({x, line});
+    possibleMoves.insert({line, y});
   }
 
   /*
@@ -256,7 +256,7 @@ Path King::getPossibleMoves(BoardState boardState) {
       auto [cellX, cellY] = pair{x + walkX, y + walkY};
 
       if (cellWithinBounds(cellX, cellY) && !(cellX == x && cellY == y))
-        possibleMoves.push_back({cellX, cellY});
+        possibleMoves.insert({cellX, cellY});
     }
   }
 
