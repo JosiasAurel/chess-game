@@ -1,6 +1,7 @@
 #include "./include/raylib.h"
 #include "./src/board/board.hpp"
 #include "./src/constants.hpp"
+#include "src/piece/piece.hpp"
 #include "src/types.hpp"
 #include <cstddef>
 #include <iostream>

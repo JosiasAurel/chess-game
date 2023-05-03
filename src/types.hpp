@@ -26,6 +26,8 @@ using BoardState = array<array<unique_ptr<Piece>, GRID_SIZE>, GRID_SIZE>;
 using TextureMap = map<int, Texture2D>;
 using Move = pair<int, int>;
 using Position = pair<int, int>;
+using Path =
+    vector<pair<int, int>>; // might be more efficient to use an array sometime
 
 // categorising the pieces
 enum class PieceType { PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING };

@@ -19,6 +19,7 @@ protected:
   pair<int, int> coordinate;
   Team team;
   PieceType pieceType;
+  unsigned moveCount = 0;
 
 public:
   Piece(pair<int, int> position, Team team, PieceType piece)
@@ -29,7 +30,7 @@ public:
   Team getTeam() { return team; }
   PieceType getPieceType() { return pieceType; }
   bool move(BoardState, pair<int, int>);
-  virtual vector<pair<int, int>> getPossibleMoves(BoardState) = 0;
+  virtual Path getPossibleMoves(BoardState) = 0;
 };
 
 /*
@@ -41,7 +42,7 @@ class Pawn : public Piece {
 public:
   Pawn(pair<int, int> coord, Team team);
   ~Pawn(){};
-  vector<pair<int, int>> getPossibleMoves(BoardState);
+  Path getPossibleMoves(BoardState);
 };
 
 /*
@@ -53,7 +54,7 @@ class Knight : public Piece {
 public:
   Knight(pair<int, int> coord, Team team);
   ~Knight(){};
-  vector<pair<int, int>> getPossibleMoves(BoardState);
+  Path getPossibleMoves(BoardState);
 };
 
 /*
@@ -65,7 +66,8 @@ class Bishop : public Piece {
 public:
   Bishop(pair<int, int> coord, Team team);
   ~Bishop(){};
-  vector<pair<int, int>> getPossibleMoves(BoardState);
+  Path getPossibleMoves(BoardState);
+  Path getMoves();
 };
 
 /*
@@ -75,7 +77,7 @@ class Rook : public Piece {
 public:
   Rook(pair<int, int> coord, Team team);
   ~Rook(){};
-  vector<pair<int, int>> getPossibleMoves(BoardState);
+  Path getPossibleMoves(BoardState);
 };
 
 /*
@@ -85,7 +87,7 @@ class King : public Piece {
 public:
   King(pair<int, int> coord, Team team);
   ~King(){};
-  vector<pair<int, int>> getPossibleMoves(BoardState);
+  Path getPossibleMoves(BoardState);
 };
 
 /*
@@ -96,6 +98,6 @@ class Queen : public Piece {
 public:
   Queen(pair<int, int> coord, Team team);
   ~Queen(){};
-  vector<pair<int, int>> getPossibleMoves(BoardState);
+  Path getPossibleMoves(BoardState);
 };
 #endif

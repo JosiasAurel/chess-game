@@ -79,6 +79,26 @@ void Board::DrawBoard() {
   }
 }
 
+/* BuildPiecePath
+
+The goal is to find valid paths the piece can move onto the board
+A path will be a list of pairs the piece can move on
+i.e pair<int, int> represent the row & col respectively.
+This function should return Path
+
+Would be nice if each piece can build a piece path based on it's current
+position on the board
+
+Something like
+Rook:
+  *initial_position
+  paths = []
+  - moves forward until it get's to the other end.
+  - goes back to initial position and moves backward until end
+  - moves left till end,
+  - moves right till end
+  ** push each move to paths array
+*/
 void Board::BuildPiecePath(Piece &piece, Position &position) {
 
   switch (piece.getPieceType()) {
