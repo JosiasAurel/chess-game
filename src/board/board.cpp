@@ -108,12 +108,6 @@ void Board::BuildPiecePath(Piece &piece, Position &position) {
     logMsg("pawn here");
     auto coord = piece._coord();
     this->movePath = piece.getPossibleMoves(this->boardState);
-
-    for (auto &item : this->movePath) {
-      std::cout << item.first << " " << item.second << std::endl;
-    }
-
-    break;
   }
   case PieceType::ROOK: {
     logMsg("rook here");
