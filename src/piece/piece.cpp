@@ -6,27 +6,20 @@ bool (*cellWithinBounds)(int, int) = [](int x, int y) {
 
 unsigned Piece::counter = 1;
 
-bool Piece::move(BoardState boardState, pair<int, int>) {
-  bool isValidMove = false;
-  // validate move
-  if (!isValidMove)
-    ; // move
+// bool Piece::move(, Coord) {
+//   bool isValidMove = false;
+//   // validate move
+//   if (!isValidMove)
+//     ; // move
 
-  this->counter++;
-  return isValidMove;
-};
+//   return isValidMove;
+// };
 
-NoPiece::NoPiece(pair<int, int> coord, Team team)
-    : Piece(coord, team, PieceType::NO_PIECE) {}
-
-// No possible moves
-Path NoPiece::getPossibleMoves(BoardState boardState) {
-  Path possibleMoves;
-  return possibleMoves;
-}
-
-Pawn::Pawn(pair<int, int> coord, Team team)
+Pawn::Pawn(Coord coord, Team team)
     : Piece(coord, team, PieceType::PAWN) {}
+
+
+
 
 /*
 In the case of the pawn, orientation matters very much
@@ -68,8 +61,9 @@ Path Pawn::getPossibleMoves(BoardState boardState) {
   return possibleMoves;
 }
 
-Knight::Knight(pair<int, int> coord, Team team)
+Knight::Knight(Coord coord, Team team)
     : Piece(coord, team, PieceType::KNIGHT) {}
+
 
 /*
 Knight moves in an L shape regardless of the direction
@@ -110,7 +104,7 @@ Path Knight::getPossibleMoves(BoardState boardState) {
   return possibleMoves;
 }
 
-Bishop::Bishop(pair<int, int> coord, Team team)
+Bishop::Bishop(Coord coord, Team team)
     : Piece(coord, team, PieceType::BISHOP) {}
 
 /*
@@ -161,14 +155,14 @@ Path Bishop::getPossibleMoves(BoardState boardState) {
   return possibleMoves;
 }
 
+Rook::Rook(Coord coord, Team team)
+    : Piece(coord, team, PieceType::ROOK) {}
+
 /*
 Rook moves in a path so as to draw a + sign wherever it is found
 
 TODO: Validation
 */
-Rook::Rook(pair<int, int> coord, Team team)
-    : Piece(coord, team, PieceType::ROOK) {}
-
 Path Rook::getPossibleMoves(BoardState boardState) {
   Path possibleMoves;
   auto [x, y] = this->coordinate;
@@ -181,8 +175,9 @@ Path Rook::getPossibleMoves(BoardState boardState) {
   return possibleMoves;
 }
 
-Queen::Queen(pair<int, int> coord, Team team)
+Queen::Queen(Coord coord, Team team)
     : Piece(coord, team, PieceType::QUEEN) {}
+
 
 /*
 Queen moves such that it forms a path in the form of a
@@ -238,8 +233,9 @@ Path Queen::getPossibleMoves(BoardState boardState) {
   return possibleMoves;
 }
 
-King::King(pair<int, int> coord, Team team)
+King::King(Coord coord, Team team)
     : Piece(coord, team, PieceType::KING) {}
+
 
 /*
 Moves one square around itself

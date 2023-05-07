@@ -1,11 +1,7 @@
-#include "./include/raylib.h"
-#include "./src/board/board.hpp"
-#include "./src/constants.hpp"
-#include "src/piece/piece.hpp"
-#include "src/types.hpp"
-#include <cstddef>
+#include "./src/chess/chess.hpp"
 #include <iostream>
 #include <memory>
+
 
 // Load assets
 
@@ -77,12 +73,12 @@ TextureMap BuildTextureMap(Board &board) {
 }
 
 int main(void) {
-  Board board = Board();
-
   InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Chess Game");
 
   SetConfigFlags(FLAG_MSAA_4X_HINT);
   SetTargetFPS(60); // Set our game to run at 60 frames-per-second
+
+  ChessGame::getGameInstance()->runGameLoop();
 
   TextureMap textureMap = BuildTextureMap(board);
 
