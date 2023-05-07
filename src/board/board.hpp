@@ -8,15 +8,18 @@
 
 using std::array, std::pair;
 
-// STALEMATE -> when the game is a draw because one of the players can no longer move 
-// CHECKMATE -> A player has CHECKMATEd their opponent 
-// RESIGNED  -> A player resigns in the game
-// ONGOING   -> The game is ongoing
+// STALEMATE -> when the game is a draw because one of the players can no longer
+// move CHECKMATE -> A player has CHECKMATEd their opponent RESIGNED  -> A
+// player resigns in the game ONGOING   -> The game is ongoing
 typedef enum { STALEMATE, CHECKMATE, RESIGNED, ONGOING } GameState;
 
 class Board {
 public:
   BoardState boardState;
+
+  // the path on which the currently selected Piece can move on
+  // update later
+  Path movePath;
 
 protected:
   vector<pair<Piece *, Coord>> history;
@@ -28,6 +31,9 @@ public:
   // validates a move before taking action
   // returns false if the move attempt fails
   bool movePiece(Coord, Coord);
+
+  void BuildPiecePath(Piece &, Position &);
+  void DrawBoard();
 
 public:
   // a move is valid if the current instance of Piece
