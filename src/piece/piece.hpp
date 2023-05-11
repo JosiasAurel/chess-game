@@ -36,7 +36,6 @@ public:
   virtual Path getPossibleMoves(BoardState) = 0;
 };
 
-};
 
 /*
 Moves one square ahead all the time

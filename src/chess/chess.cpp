@@ -1,15 +1,40 @@
 #include "./chess.hpp"
 #include <iostream>
 
+// generate the 2D textures for game sprites
+
+Texture2D pathToTexture(string path){
+  std::cout << "Open 1...";
+  Image img = LoadImage(path.c_str());
+  std::cout << "Open 2...";
+  ImageResize(&img, SPRITE_SIZE, SPRITE_SIZE);
+  std::cout << "Open 3...";
+  return LoadTextureFromImage(img);
+}
+
+
+const map<PieceType, Texture2D> BLACK_SPRITES = {
+    {PieceType::PAWN, pathToTexture("./assets/sprites/pawn_black.png")},
+    {PieceType::KNIGHT, pathToTexture("./assets/sprites/knight_black.png")},
+    {PieceType::BISHOP, pathToTexture("./assets/sprites/bishop_black.png")},
+    {PieceType::ROOK, pathToTexture("./assets/sprites/rook_black.png")},
+    {PieceType::QUEEN, pathToTexture("./assets/sprites/queen_black.png")},
+    {PieceType::KING, pathToTexture("./assets/sprites/king_black.png")},
+};
+
+const map<PieceType, Texture2D> WHITE_SPRITES = {
+    {PieceType::PAWN, pathToTexture("./assets/sprites/pawn_white.png")},
+    {PieceType::KNIGHT, pathToTexture("./assets/sprites/knight_white.png")},
+    {PieceType::BISHOP, pathToTexture("./assets/sprites/bishop_white.png")},
+    {PieceType::ROOK, pathToTexture("./assets/sprites/rook_white.png")},
+    {PieceType::QUEEN, pathToTexture("./assets/sprites/queen_white.png")},
+    {PieceType::KING, pathToTexture("./assets/sprites/king_white.png")},
+};
+
 shared_ptr<ChessGame> ChessGame::gameInstance(nullptr);
 
 ChessGame::ChessGame():chessBoard(Board()){
-  // for (auto &[key, value] : WHITE_SPRITES){
-  //   ImageResize(&value, SPRITE_SIZE, SPRITE_SIZE);
-  // }
-  // for (auto &[key, value] : BLACK_SPRITES){
-  //   ImageResize(&value, SPRITE_SIZE, SPRITE_SIZE);
-  // }
+  
 }
 
 ChessGame::~ChessGame(){}
@@ -25,17 +50,21 @@ Coord ChessGame::mapIndicesToCoord(Coord indices){
   return pair(MARGIN_X + col * CELL_SIZE, MARGIN_Y + row * CELL_SIZE);
 }
 void ChessGame::drawBoard(){
+  // since objects of `Color` don't have a == operator
+  // use 0 for DEEP_BROWN and 1 for light BROWN
   auto color = pair{0, DEEP_BROWN}; 
   for (int row = 0; row < GRID_SIZE; row++) {
     color = color.first  == 0  ? pair{1, LIGHT_BROWN} : pair{0, DEEP_BROWN};
     for (int col = 0; col < GRID_SIZE; col++) {
-      if((col % 2) == 0)
-        DrawRectangle(MARGIN_X + col * CELL_SIZE, MARGIN_Y + row * CELL_SIZE,
-                      CELL_SIZE, CELL_SIZE, color.second);
+      Rectangle rect = {.x = static_cast<float>(MARGIN_X + col * CELL_SIZE),
+                        .y = static_cast<float>(MARGIN_Y + row * CELL_SIZE),
+                        .width = CELL_SIZE,
+                        .height = CELL_SIZE};
+      if ((col % 2) == 0)
+        DrawRectangleRec(rect, color.second);
       else
-        DrawRectangle(MARGIN_X + col * CELL_SIZE, MARGIN_Y + row * CELL_SIZE,
-                      CELL_SIZE, CELL_SIZE, color.second);
-      color = color.first  == 0  ? pair{1, LIGHT_BROWN} : pair{0, DEEP_BROWN};
+        DrawRectangleRec(rect, color.second);
+      color = color.first == 0 ? pair{1, LIGHT_BROWN} : pair{0, DEEP_BROWN};
     }
   }
 }
@@ -50,11 +79,10 @@ void ChessGame::drawSprites(){
         continue;
       auto teamSprites = piecePtr->getTeam() == Team::CHESS_BLACK ?
                         BLACK_SPRITES : WHITE_SPRITES;
-      // auto pieceSprite = teamSprites[piecePtr->getPieceType()];
-      // ImageResize(&pieceSprite, SPRITE_SIZE, SPRITE_SIZE);
+      auto pieceSprite = teamSprites[piecePtr->getPieceType()];
 
       //draw sprite at center of the cell
-      DrawTexture(LoadTextureFromImage(teamSprites[piecePtr->getPieceType()]), 
+      DrawTexture(pieceSprite, 
                   MARGIN_X + col * CELL_SIZE + (CELL_SIZE - SPRITE_SIZE) / 2, 
                   MARGIN_Y + row * CELL_SIZE + (CELL_SIZE - SPRITE_SIZE) / 2, WHITE);
     }
@@ -63,7 +91,7 @@ void ChessGame::drawSprites(){
 
 void ChessGame::highlightPiece(Coord coord, HighlightLevel highlightLevel, bool showMoves = false){
   auto [cellX, cellY] = mapIndicesToCoord(coord);
-  auto [x, y] = coord;
+  // auto [x, y] = coord;
   Color highlightColor;
   switch (highlightLevel)
   {
