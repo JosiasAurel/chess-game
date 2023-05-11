@@ -4,11 +4,8 @@
 // generate the 2D textures for game sprites
 
 Texture2D pathToTexture(string path){
-  std::cout << "Open 1...";
   Image img = LoadImage(path.c_str());
-  std::cout << "Open 2...";
   ImageResize(&img, SPRITE_SIZE, SPRITE_SIZE);
-  std::cout << "Open 3...";
   return LoadTextureFromImage(img);
 }
 
