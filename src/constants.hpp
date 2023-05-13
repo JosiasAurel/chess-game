@@ -30,6 +30,10 @@ LIGHT_RED      = { 201, 137, 85, 125 };
 
 // Assets
 // 1. Sprites
+
+//* Will be initiliased in the game's load asset method
+
+// extern map<PieceType, Texture2D> BLACK_SPRITES, WHITE_SPRITES;
 // 2. Audio
 
 #endif
