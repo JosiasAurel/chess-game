@@ -7,23 +7,8 @@
 #include "../constants.hpp"
 #include "../types.hpp"
 
-map<PieceType, Image> BLACK_SPRITES = {
-  {PieceType::PAWN, LoadImage("./assets/sprites/pawn_black.png")},
-  {PieceType::KNIGHT, LoadImage("./assets/sprites/knight_black.png")},
-  {PieceType::BISHOP, LoadImage("./assets/sprites/bishop_black.png")},
-  {PieceType::ROOK, LoadImage("./assets/sprites/rook_black.png")},
-  {PieceType::QUEEN, LoadImage("./assets/sprites/queen_black.png")},
-  {PieceType::KING, LoadImage("./assets/sprites/king_black.png")},
-};
+extern Texture2D pathToTexture(string path);
 
-map<PieceType, Image> WHITE_SPRITES = {
-  {PieceType::PAWN, LoadImage("./assets/sprites/pawn_white.png")},
-  {PieceType::KNIGHT, LoadImage("./assets/sprites/knight_white.png")},
-  {PieceType::BISHOP, LoadImage("./assets/sprites/bishop_white.png")},
-  {PieceType::ROOK, LoadImage("./assets/sprites/rook_white.png")},
-  {PieceType::QUEEN, LoadImage("./assets/sprites/queen_white.png")},
-  {PieceType::KING, LoadImage("./assets/sprites/king_white.png")},
-};
 
 class ChessGame {
   private:

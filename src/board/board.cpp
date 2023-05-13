@@ -46,40 +46,6 @@ bool Board::ValidateMove(Piece *p, pair<int, int> target) { return false; }
 
 GameState Board::EvaluateGame() { return GameState::CHECKMATE; }
 
-void Board::DrawBoard() {
-
-  // since objects of `Color` don't have a == operator
-  // use 0 for DEEP_BROWN and 1 for light BROWN
-  auto color = pair{0, DEEP_BROWN};
-  for (int row = 0; row < GRID_SIZE; row++) {
-
-    color = color.first == 0 ? pair{1, LIGHT_BROWN} : pair{0, DEEP_BROWN};
-
-    for (int col = 0; col < GRID_SIZE; col++) {
-      Rectangle rect = {.x = static_cast<float>(MARGIN_X + col * CELL_SIZE),
-                        .y = static_cast<float>(MARGIN_Y + row * CELL_SIZE),
-                        .width = CELL_SIZE,
-                        .height = CELL_SIZE};
-      if ((col % 2) == 0)
-        DrawRectangleRec(rect, color.second);
-      else
-        DrawRectangleRec(rect, color.second);
-      color = color.first == 0 ? pair{1, LIGHT_BROWN} : pair{0, DEEP_BROWN};
-
-      // find out if there's a piece at this point
-      // this block is temporary
-      // should be well organised later to make navigating the code clearer
-      auto piecePtr = this->boardState[row][col].get();
-      if (piecePtr != nullptr) {
-        if (CheckCollisionPointRec(GetMousePosition(), rect) &&
-            IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-          Position p{row, col};
-          this->BuildPiecePath(*piecePtr, p);
-        }
-      }
-    }
-  }
-}
 
 /* BuildPiecePath
 
@@ -101,59 +67,59 @@ Rook:
   - moves right till end
   ** push each move to paths array
 */
-void Board::BuildPiecePath(Piece &piece, Position &position) {
+// void Board::BuildPiecePath(Piece &piece, Position &position) {
 
-  switch (piece.getPieceType()) {
-  case PieceType::PAWN: {
-    logMsg("pawn here");
-    auto coord = piece._coord();
-    this->movePath = piece.getPossibleMoves(this->boardState);
-  }
-  case PieceType::ROOK: {
-    logMsg("rook here");
-    this->movePath = piece.getPossibleMoves(this->boardState);
-    break;
-  }
-  case PieceType::KNIGHT: {
-    logMsg("knight here");
-    this->movePath = piece.getPossibleMoves(this->boardState);
-    break;
-  }
-  case PieceType::BISHOP: {
-    logMsg("bishop here");
-    this->movePath = piece.getPossibleMoves(this->boardState);
-    break;
-  }
-  case PieceType::KING: {
-    logMsg("king here");
-    this->movePath = piece.getPossibleMoves(this->boardState);
-    break;
-  }
-  case PieceType::QUEEN: {
-    logMsg("queen here");
-    this->movePath = piece.getPossibleMoves(this->boardState);
-    break;
-  }
-  case PieceType::NO_PIECE: {
+//   switch (piece.getPieceType()) {
+//   case PieceType::PAWN: {
+//     logMsg("pawn here");
+//     auto coord = piece._coord();
+//     this->movePath = piece.getPossibleMoves(this->boardState);
+//   }
+//   case PieceType::ROOK: {
+//     logMsg("rook here");
+//     this->movePath = piece.getPossibleMoves(this->boardState);
+//     break;
+//   }
+//   case PieceType::KNIGHT: {
+//     logMsg("knight here");
+//     this->movePath = piece.getPossibleMoves(this->boardState);
+//     break;
+//   }
+//   case PieceType::BISHOP: {
+//     logMsg("bishop here");
+//     this->movePath = piece.getPossibleMoves(this->boardState);
+//     break;
+//   }
+//   case PieceType::KING: {
+//     logMsg("king here");
+//     this->movePath = piece.getPossibleMoves(this->boardState);
+//     break;
+//   }
+//   case PieceType::QUEEN: {
+//     logMsg("queen here");
+//     this->movePath = piece.getPossibleMoves(this->boardState);
+//     break;
+//   }
+//   case PieceType::NO_PIECE: {
 
-    // remove highlights
-    for (int row_idx = 0; row_idx < this->boardState.size(); row_idx++) {
-      for (int col_idx = 0; col_idx < this->boardState[row_idx].size();
-           col_idx++) {
-        auto piece = this->boardState[row_idx][col_idx];
-        if (piece->getPieceType() == PieceType::NO_PIECE) {
-          this->boardState[row_idx][col_idx] = nullptr;
-        }
-      }
-    }
+//     // remove highlights
+//     for (int row_idx = 0; row_idx < this->boardState.size(); row_idx++) {
+//       for (int col_idx = 0; col_idx < this->boardState[row_idx].size();
+//            col_idx++) {
+//         auto piece = this->boardState[row_idx][col_idx];
+//         if (piece->getPieceType() == PieceType::NO_PIECE) {
+//           this->boardState[row_idx][col_idx] = nullptr;
+//         }
+//       }
+//     }
 
-    break;
-  }
+//     break;
+//   }
 
-  default:
-    this->movePath = {};
-    break;
-  }
+//   default:
+//     this->movePath = {};
+//     break;
+//   }
   // nothing here
   // to talk about
-}
+// }
