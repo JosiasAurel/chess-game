@@ -7,6 +7,8 @@
 #include "../constants.hpp"
 #include "../types.hpp"
 
+extern Texture2D pathToTexture(string path);
+
 
 class ChessGame {
   private:
