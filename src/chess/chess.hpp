@@ -8,7 +8,7 @@
 #include "../types.hpp"
 
 extern Texture2D pathToTexture(string path);
-
+extern void processTextures();
 
 class ChessGame {
   private:
@@ -26,6 +26,7 @@ class ChessGame {
     void drawBoard();
     void drawSprites();
     void updateScreen();
+    void loadAndPrepareAssets();
     void runGameLoop();
     ~ChessGame();
 };

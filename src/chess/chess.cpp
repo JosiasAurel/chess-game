@@ -1,7 +1,8 @@
 #include "./chess.hpp"
-#include <iostream>
 
 // generate the 2D textures for game sprites
+map<PieceType, Texture2D> BLACK_SPRITES;
+map<PieceType, Texture2D> WHITE_SPRITES;
 
 Texture2D pathToTexture(string path){
   Image img = LoadImage(path.c_str());
@@ -9,24 +10,23 @@ Texture2D pathToTexture(string path){
   return LoadTextureFromImage(img);
 }
 
+void processTextures(){
+  BLACK_SPRITES.insert({PieceType::PAWN, pathToTexture("./assets/sprites/pawn_black.png")});
+  BLACK_SPRITES.insert({PieceType::KNIGHT, pathToTexture("./assets/sprites/knight_black.png")});
+  BLACK_SPRITES.insert({PieceType::BISHOP, pathToTexture("./assets/sprites/bishop_black.png")});
+  BLACK_SPRITES.insert({PieceType::ROOK, pathToTexture("./assets/sprites/rook_black.png")});
+  BLACK_SPRITES.insert({PieceType::QUEEN, pathToTexture("./assets/sprites/queen_black.png")});
+  BLACK_SPRITES.insert({PieceType::KING, pathToTexture("./assets/sprites/king_black.png")});
 
-const map<PieceType, Texture2D> BLACK_SPRITES = {
-    {PieceType::PAWN, pathToTexture("./assets/sprites/pawn_black.png")},
-    {PieceType::KNIGHT, pathToTexture("./assets/sprites/knight_black.png")},
-    {PieceType::BISHOP, pathToTexture("./assets/sprites/bishop_black.png")},
-    {PieceType::ROOK, pathToTexture("./assets/sprites/rook_black.png")},
-    {PieceType::QUEEN, pathToTexture("./assets/sprites/queen_black.png")},
-    {PieceType::KING, pathToTexture("./assets/sprites/king_black.png")},
-};
+  WHITE_SPRITES.insert({PieceType::PAWN, pathToTexture("./assets/sprites/pawn_white.png")});
+  WHITE_SPRITES.insert({PieceType::KNIGHT, pathToTexture("./assets/sprites/knight_white.png")});
+  WHITE_SPRITES.insert({PieceType::BISHOP, pathToTexture("./assets/sprites/bishop_white.png")});
+  WHITE_SPRITES.insert({PieceType::ROOK, pathToTexture("./assets/sprites/rook_white.png")});
+  WHITE_SPRITES.insert({PieceType::QUEEN, pathToTexture("./assets/sprites/queen_white.png")});
+  WHITE_SPRITES.insert({PieceType::KING, pathToTexture("./assets/sprites/king_white.png")});
 
-const map<PieceType, Texture2D> WHITE_SPRITES = {
-    {PieceType::PAWN, pathToTexture("./assets/sprites/pawn_white.png")},
-    {PieceType::KNIGHT, pathToTexture("./assets/sprites/knight_white.png")},
-    {PieceType::BISHOP, pathToTexture("./assets/sprites/bishop_white.png")},
-    {PieceType::ROOK, pathToTexture("./assets/sprites/rook_white.png")},
-    {PieceType::QUEEN, pathToTexture("./assets/sprites/queen_white.png")},
-    {PieceType::KING, pathToTexture("./assets/sprites/king_white.png")},
-};
+
+}
 
 shared_ptr<ChessGame> ChessGame::gameInstance(nullptr);
 
@@ -116,7 +116,13 @@ void ChessGame::updateScreen(){
   drawSprites();
 }
 
+void ChessGame::loadAndPrepareAssets(){
+  processTextures();
+}
+
 void ChessGame::runGameLoop(){
+  loadAndPrepareAssets();
+
   bool pieceSelected = false;
   int cellX = 0, cellY = 0;
   while (!WindowShouldClose()) // Detect window close button or ESC key
@@ -151,7 +157,6 @@ void ChessGame::runGameLoop(){
 
     drawBoard();
     if(pieceSelected)
-      //CloseWindow();
       highlightPiece(pair{cellX, cellY}, HighlightLevel::INFO, false);
     drawSprites();
 
