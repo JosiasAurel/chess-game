@@ -22,9 +22,9 @@ constexpr Color
 DEEP_BROWN     = { 201, 137, 85, 255 },
 LIGHT_BROWN    = { 222, 202, 186, 255 },
 
-LIGHT_GREEN    = { 12, 200, 12, 60 },
-LIGHT_YELLOW   = { 201, 137, 85, 125 },
-LIGHT_RED      = { 201, 137, 85, 125 };
+LIGHT_GREEN    = { 127, 255, 127, 255 },
+LIGHT_YELLOW   = { 255, 255, 127, 125 },
+LIGHT_RED      = { 127, 0, 0, 255 };
 
 
 

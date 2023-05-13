@@ -122,7 +122,7 @@ void ChessGame::loadAndPrepareAssets(){
 
 void ChessGame::runGameLoop(){
   loadAndPrepareAssets();
-  
+
   bool pieceSelected = false;
   int cellX = 0, cellY = 0;
   while (!WindowShouldClose()) // Detect window close button or ESC key
@@ -157,7 +157,6 @@ void ChessGame::runGameLoop(){
 
     drawBoard();
     if(pieceSelected)
-      //CloseWindow();
       highlightPiece(pair{cellX, cellY}, HighlightLevel::INFO, false);
     drawSprites();
 
