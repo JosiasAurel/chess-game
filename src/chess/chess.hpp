@@ -26,7 +26,7 @@ class ChessGame {
   public:
     ChessGame(const ChessGame& )= delete; //delete copy constructor
     static shared_ptr<ChessGame> getGameInstance();
-    void highlightPiece(int, int, HighlightLevel , bool);
+    void highlightPiece(const shared_ptr<Piece>, HighlightLevel , bool);
     void drawBoard();
     void drawSprites();
     void updateScreen();
