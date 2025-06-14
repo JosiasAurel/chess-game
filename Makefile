@@ -9,3 +9,6 @@ windows:
 
 browser:
 	emcc -o web/index.html main.cpp ./d_modules/*.cpp flecs.o -Os -Wall ./lib/wlibraylib.a -I. -Iinclude -L. -Llib -s USE_GLFW=3 -s ASYNCIFY -DPLATFORM_WEB
+
+run:
+	./chess
