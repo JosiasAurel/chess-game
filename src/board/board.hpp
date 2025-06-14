@@ -16,7 +16,7 @@ typedef enum { STALEMATE, CHECKMATE, RESIGNED, ONGOING } GameState;
 class Board {
 public:
   BoardState boardState;
-
+  std::unordered_map<std::string, shared_ptr<Piece>> piecesRef;
   // the path on which the currently selected Piece can move on
   // update later
   Path movePath;
