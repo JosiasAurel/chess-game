@@ -17,8 +17,8 @@ protected:
   static unsigned counter;
   unsigned id;
 
-  //  coordinates
   Coord coordinate;
+  Rectangle pRect;
   Team team;
   PieceType pieceType;
   unsigned moveCount = 0;
@@ -33,8 +33,16 @@ public:
   PieceType getPieceType(){return pieceType;}
   bool move(BoardState, pair<int, int>);
   pair<int, int> _coord() { return coordinate; };
+  Rectangle _rect() { return pRect; }
   virtual Path getPossibleMoves(BoardState) = 0;
+  void _setRect(Rectangle rect) {
+    pRect.height = rect.height;
+    pRect.width = rect.width;
+    pRect.x = rect.x;
+    pRect.y = rect.y;
+  }
 };
+
 
 
 /*

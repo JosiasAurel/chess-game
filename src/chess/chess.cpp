@@ -66,14 +66,24 @@ void ChessGame::drawBoard(){
 void ChessGame::drawSprites(){
   for (int row = 0; row < GRID_SIZE; row++) {
     for (int col = 0; col < GRID_SIZE; col++) {
+      // auto pieceSharedPtr = chessBoard.boardState[row][col];
       auto piecePtr = chessBoard.boardState[row][col].get();
       if (piecePtr == nullptr)
         continue;
+      /*
+       auto cellX = static_cast<int>((pieceRect.x - MARGIN_X) / CELL_SIZE);
+      auto cellY = static_cast<int>((pieceRect.y - MARGIN_Y) / CELL_SIZE);
+
+      // std::cout << "cellX " << cellX << " when it ought to be " << row << std::endl;
+      // std::cout << "cellY " << cellY << " when it ought to be " << col << std::endl;
+      
+      pieceSharedPtr->_setRect(pieceRect);
+      piecesRef[typeid(*piecePtr).name()] = pieceSharedPtr;
+  */
       auto teamSprites = piecePtr->getTeam() == Team::CHESS_BLACK ?
                         BLACK_SPRITES : WHITE_SPRITES;
       auto pieceSprite = teamSprites[piecePtr->getPieceType()];
-
-      //draw sprite at center of the cell
+     //draw sprite at center of the cell
       DrawTexture(pieceSprite,
                   MARGIN_X + col * CELL_SIZE + (CELL_SIZE - SPRITE_SIZE) / 2,
                   MARGIN_Y + row * CELL_SIZE + (CELL_SIZE - SPRITE_SIZE) / 2, WHITE);
@@ -81,9 +91,7 @@ void ChessGame::drawSprites(){
   }
 }
 
-void ChessGame::highlightPiece(Coord coord, HighlightLevel highlightLevel, bool showMoves = false){
-  auto [cellX, cellY] = mapIndicesToCoord(coord);
-  // auto [x, y] = coord;
+void ChessGame::highlightPiece(const shared_ptr<Piece> piece, HighlightLevel highlightLevel, bool showMoves = false){
   Color highlightColor;
   switch (highlightLevel)
   {
@@ -98,12 +106,24 @@ void ChessGame::highlightPiece(Coord coord, HighlightLevel highlightLevel, bool 
       highlightColor = LIGHT_RED;
       break;
   }
-  DrawRectangle(cellX, cellY, CELL_SIZE, CELL_SIZE, highlightColor);
+  auto pieceRect = piece->_rect();
+  DrawRectangle(pieceRect.x, pieceRect.y, CELL_SIZE, CELL_SIZE, highlightColor);
   if(!showMoves) return;
   //TODO implement later: hightlighting a piece's possibl moves
-  // for(Coord coord: chessBoard.boardState[x][y]->getPossibleMoves()){
-  //   //highlight with a different color
-  // }
+  // std::cout << "will show moves" << std::endl;
+  for(Coord coord: piece->getPossibleMoves(this->chessBoard.boardState)){
+    // draw highlights at the positions
+    // first convert the possible positions to positions relative to
+    // the current piece position
+    // std::cout << " dx " << coord.first << " dy " << coord.second << std::endl;
+    // std::cout << "cx " << pieceRect.x << " cy " << pieceRect.y << std::endl;
+  
+    // DrawRectangle(piecePos.first + coord.first, piecePos.second + coord.second, CELL_SIZE, CELL_SIZE, LIGHT_GREEN);
+    // DrawRectangle(coord.first, coord.second, CELL_SIZE, CELL_SIZE, LIGHT_GREEN);
+
+    DrawRectangle(coord.first, coord.second, CELL_SIZE, CELL_SIZE, highlightColor);
+  }
+  return;
 }
 
 void ChessGame::updateScreen(){
@@ -118,7 +138,7 @@ void ChessGame::loadAndPrepareAssets(){
 void ChessGame::runGameLoop(){
   loadAndPrepareAssets();
 
-  bool pieceSelected = false;
+  shared_ptr<Piece> pieceSelected = nullptr;
   int cellX = 0, cellY = 0;
   while (!WindowShouldClose()) // Detect window close button or ESC key
   {
@@ -134,6 +154,38 @@ void ChessGame::runGameLoop(){
       // int yi = (x - MARGIN_X)/CELL_SIZE;
       // int xi = (y - MARGIN_Y)/CELL_SIZE;
 
+      // this is slow... gotta optimize this shit
+      // it is much faster to look through the position of individual pieces to
+      // check which one intersects with the current mouse coordinates
+    
+      auto mousePosition = Vector2{float(x), float(y)};
+      for (const std::pair<std::string, shared_ptr<Piece>>& pieceRef : chessBoard.piecesRef) {
+        auto chessPiece = pieceRef.second.get();
+        auto pieceRect = chessPiece->_rect();
+        // auto pieceRect = pieceRef.get()->_rect();
+        bool isPieceSelected = CheckCollisionPointRec(mousePosition, pieceRect);
+       
+        if (isPieceSelected) {
+          pieceSelected = pieceRef.second;
+          std::cout << "mx " << mousePosition.x << " my " << mousePosition.y << std::endl;
+          std::cout << "Rectangle(x=" << pieceRect.x << ", y=" << pieceRect.y << ", width=" << pieceRect.width << ", height=" << pieceRect.height << ")" << std::endl;
+          std::cout << "collision? " << pieceSelected << std::endl;
+          std::cout << "team " << (chessPiece->getTeam() == Team::CHESS_BLACK ? "Black" : "White") << std::endl;
+
+          lastMouseClickCoord = {x, y};
+
+          // cellX = (pieceRect.x - MARGIN_X) / CELL_SIZE;
+          // cellY = (pieceRect.y - MARGIN_Y) / CELL_SIZE;
+
+          cellX = pieceRect.x;
+          cellY = pieceRect.y;
+
+          break;
+        }
+        if (isPieceSelected) break;
+      }
+      /*
+
       for (int row = 0; row < GRID_SIZE; row++) {
         for (int col = 0; col < GRID_SIZE; col++) {
           auto cellRect = Rectangle{float(MARGIN_X + col * CELL_SIZE),
@@ -148,12 +200,14 @@ void ChessGame::runGameLoop(){
         }
         if(pieceSelected) break;
       }
+        */
     }
 
     drawBoard();
-    if(pieceSelected)
-      highlightPiece(pair{cellX, cellY}, HighlightLevel::INFO, false);
+    if(pieceSelected != nullptr)
+      highlightPiece(pieceSelected, HighlightLevel::INFO, true);
     drawSprites();
+    // TODO: after a move, the selected piece should be set to nullptr
 
     EndDrawing();
   }
