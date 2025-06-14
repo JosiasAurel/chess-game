@@ -43,7 +43,7 @@ enum class PieceType { PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING, NO_PIECE };
 // representing the team of a piece
 enum class Team { CHESS_WHITE, CHESS_BLACK };
 
-//  reprenting severity? of highlight
+//  representing severity? of highlight
 enum class HighlightLevel{
   INFO,
   WARNING,

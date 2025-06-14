@@ -14,6 +14,7 @@ class ChessGame {
   private:
     static shared_ptr<ChessGame> gameInstance;
 
+    Team teamTurn = Team::CHESS_WHITE;
     Board chessBoard;
     Coord lastMouseClickCoord, currentMouseCoord;
     ChessGame();

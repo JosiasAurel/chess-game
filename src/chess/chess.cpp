@@ -24,20 +24,16 @@ void processTextures(){
   WHITE_SPRITES.insert({PieceType::ROOK, pathToTexture("./assets/sprites/rook_white.png")});
   WHITE_SPRITES.insert({PieceType::QUEEN, pathToTexture("./assets/sprites/queen_white.png")});
   WHITE_SPRITES.insert({PieceType::KING, pathToTexture("./assets/sprites/king_white.png")});
-
-
 }
 
 shared_ptr<ChessGame> ChessGame::gameInstance(nullptr);
 
-ChessGame::ChessGame():chessBoard(Board()){
-  
-}
+ChessGame::ChessGame():chessBoard(Board()) {}
 
-ChessGame::~ChessGame(){}
+ChessGame::~ChessGame() {}
 
-shared_ptr<ChessGame> ChessGame::getGameInstance(){
-  if(ChessGame::gameInstance.get() == nullptr)
+shared_ptr<ChessGame> ChessGame::getGameInstance() {
+  if (ChessGame::gameInstance.get() == nullptr)
     ChessGame::gameInstance.reset(new ChessGame());
   return ChessGame::gameInstance;
 }
@@ -46,32 +42,31 @@ Coord ChessGame::mapIndicesToCoord(Coord indices){
   auto [row, col] = indices;
   return pair(MARGIN_X + col * CELL_SIZE, MARGIN_Y + row * CELL_SIZE);
 }
+
 void ChessGame::drawBoard(){
   // since objects of `Color` don't have a == operator
-  // use 0 for DEEP_BROWN and 1 for light BROWN
-  auto color = pair{0, DEEP_BROWN}; 
+  // use 0 for DEEP_BROWN and 1 for LIGHT_BROWN
+  auto color = pair{0, DEEP_BROWN};
   for (int row = 0; row < GRID_SIZE; row++) {
-    color = color.first  == 0  ? pair{1, LIGHT_BROWN} : pair{0, DEEP_BROWN};
+    color = color.first == 0 ? pair{1, LIGHT_BROWN} : pair{0, DEEP_BROWN};
     for (int col = 0; col < GRID_SIZE; col++) {
       Rectangle rect = {.x = static_cast<float>(MARGIN_X + col * CELL_SIZE),
                         .y = static_cast<float>(MARGIN_Y + row * CELL_SIZE),
                         .width = CELL_SIZE,
                         .height = CELL_SIZE};
-      if ((col % 2) == 0)
-        DrawRectangleRec(rect, color.second);
-      else
-        DrawRectangleRec(rect, color.second);
+
+      DrawRectangleRec(rect, color.second);
       color = color.first == 0 ? pair{1, LIGHT_BROWN} : pair{0, DEEP_BROWN};
     }
   }
 }
 
 
-//TODO Pre-process and store the sprites to avoid wasting time
+//TODO Pre-process and store the sprites to avoid waisting time
 void ChessGame::drawSprites(){
   for (int row = 0; row < GRID_SIZE; row++) {
     for (int col = 0; col < GRID_SIZE; col++) {
-      auto piecePtr = chessBoard.boardState[row][col].get(); 
+      auto piecePtr = chessBoard.boardState[row][col].get();
       if (piecePtr == nullptr)
         continue;
       auto teamSprites = piecePtr->getTeam() == Team::CHESS_BLACK ?
@@ -79,8 +74,8 @@ void ChessGame::drawSprites(){
       auto pieceSprite = teamSprites[piecePtr->getPieceType()];
 
       //draw sprite at center of the cell
-      DrawTexture(pieceSprite, 
-                  MARGIN_X + col * CELL_SIZE + (CELL_SIZE - SPRITE_SIZE) / 2, 
+      DrawTexture(pieceSprite,
+                  MARGIN_X + col * CELL_SIZE + (CELL_SIZE - SPRITE_SIZE) / 2,
                   MARGIN_Y + row * CELL_SIZE + (CELL_SIZE - SPRITE_SIZE) / 2, WHITE);
     }
   }
@@ -138,10 +133,10 @@ void ChessGame::runGameLoop(){
       //TODO find an easier way of resolving coord to board indices
       // int yi = (x - MARGIN_X)/CELL_SIZE;
       // int xi = (y - MARGIN_Y)/CELL_SIZE;
-      
+
       for (int row = 0; row < GRID_SIZE; row++) {
         for (int col = 0; col < GRID_SIZE; col++) {
-          auto cellRect = Rectangle{float(MARGIN_X + col * CELL_SIZE), 
+          auto cellRect = Rectangle{float(MARGIN_X + col * CELL_SIZE),
                                     float(MARGIN_Y + row * CELL_SIZE),
                           CELL_SIZE, CELL_SIZE};
           pieceSelected = CheckCollisionPointRec(Vector2{float(x), float(y)}, cellRect);
@@ -149,7 +144,7 @@ void ChessGame::runGameLoop(){
             lastMouseClickCoord = {x, y};
             cellX = row, cellY = col;
             break;
-          } 
+          }
         }
         if(pieceSelected) break;
       }

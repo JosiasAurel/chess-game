@@ -46,7 +46,6 @@ bool Board::ValidateMove(Piece *p, pair<int, int> target) { return false; }
 
 GameState Board::EvaluateGame() { return GameState::CHECKMATE; }
 
-
 /* BuildPiecePath
 
 The goal is to find valid paths the piece can move onto the board
