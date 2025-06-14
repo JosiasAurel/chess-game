@@ -2,6 +2,7 @@
 #include "../types.hpp"
 #include <cstdio>
 #include <iostream>
+#include <sstream>
 
 // using std::cout;
 // using std::endl;
@@ -30,6 +31,44 @@ Board::Board() {
 
       boardState[row][column].reset(new Pawn({column, row}, team));
   }
+
+  // this is done only once at initialization
+  // TODO: could still be better done... just racing here
+  
+  for (size_t row = 0; row < boardState.size(); ++row) {
+    auto row_v = boardState[row];
+    for (size_t col = 0; col < row_v.size(); ++col) {
+      auto col_v = boardState[row][col];
+      if (col_v == nullptr) continue;
+      
+     // std::cout << typeid(*piecePtr).name() << std::endl;
+      // store a reference to each piece in the piecesRef
+      // TODO: do this at a better initialization step
+      Rectangle pieceRect = Rectangle{
+        float(MARGIN_X + col * CELL_SIZE),
+        float(MARGIN_Y + row * CELL_SIZE),
+        CELL_SIZE, CELL_SIZE
+      };
+      col_v->_setRect(pieceRect);
+      auto piecePtr = col_v.get();
+      std::ostringstream oss;
+      oss << static_cast<const void*>(piecePtr);
+      std::string pieceAddr = oss.str();
+      piecesRef[pieceAddr] = col_v;
+      
+
+      std::cout << "added piece " << pieceAddr << std::endl;
+      std::cout << "Rectangle(x=" << pieceRect.x << ", y=" << pieceRect.y << ", width=" << pieceRect.width << ", height=" << pieceRect.height << ")" << std::endl;
+
+    }
+  }
+
+  /*
+  for (auto row : boardState) {
+    for (auto item : row) {
+    }
+  }
+  */
 }
 
 Board::~Board() {
