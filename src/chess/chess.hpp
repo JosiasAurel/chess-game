@@ -17,13 +17,16 @@ class ChessGame {
     Team teamTurn = Team::CHESS_WHITE;
     Board chessBoard;
     Coord lastMouseClickCoord, currentMouseCoord;
+    // std::unordered_map<std::string, shared_ptr<Piece>> piecesRef;
+    // vector<shared_ptr<Piece>> piecesRef;
     ChessGame();
     Coord mapIndicesToCoord(int x, int y){return mapIndicesToCoord(pair{x, y});}
     Coord mapIndicesToCoord(Coord );
+    
   public:
     ChessGame(const ChessGame& )= delete; //delete copy constructor
     static shared_ptr<ChessGame> getGameInstance();
-    void highlightPiece(Coord, HighlightLevel , bool);
+    void highlightPiece(int, int, HighlightLevel , bool);
     void drawBoard();
     void drawSprites();
     void updateScreen();
