@@ -5,3 +5,5 @@ lib
 *.env
 *.exe
 todo.md
+chess
+.DS_Store
