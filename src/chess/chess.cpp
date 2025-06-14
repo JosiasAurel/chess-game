@@ -84,6 +84,7 @@ void ChessGame::drawSprites(){
 void ChessGame::highlightPiece(Coord coord, HighlightLevel highlightLevel, bool showMoves = false){
   auto [cellX, cellY] = mapIndicesToCoord(coord);
   // auto [x, y] = coord;
+void ChessGame::highlightPiece(int x, int y, HighlightLevel highlightLevel, bool showMoves = false){
   Color highlightColor;
   switch (highlightLevel)
   {
