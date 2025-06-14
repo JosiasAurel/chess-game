@@ -154,6 +154,7 @@ void ChessGame::runGameLoop(){
     drawBoard();
     if(pieceSelected)
       highlightPiece(pair{cellX, cellY}, HighlightLevel::INFO, false);
+      highlightPiece(cellX, cellY, HighlightLevel::INFO, false);
     drawSprites();
 
     EndDrawing();
